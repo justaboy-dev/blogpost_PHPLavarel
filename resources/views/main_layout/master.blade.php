@@ -13,6 +13,7 @@
     <link rel="shortcut icon" href="{{ asset('template/assets/img/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('template/assets/css/plugins.css') }}">
     <link rel="stylesheet" href="{{ asset('template/assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('template/assets/css/custom.css') }}">
     @yield('custom-css')
 </head>
 

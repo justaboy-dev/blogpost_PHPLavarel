@@ -20908,7 +20908,8 @@ figure {
 figure img {
   width: 100%;
   max-width: 100%;
-  height: auto !important;
+  height: 200px!important;
+  object-fit: cover;
 }
 .img-blob img {
   -webkit-mask-position: center center;
@@ -37333,3 +37334,5 @@ footer.bg-dark.angled.lower-start:after,
 footer.bg-dark.angled.upper-start:before {
   border-left-color: #21262c !important;
 }
+
+
