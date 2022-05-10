@@ -13,8 +13,10 @@ Route::get('/posts/{post:slug}', [PostController::class,'show'])->name('posts.sh
 Route::post('/post/{post:slug}', [PostController::class,'add_comment'])->name('posts.add_comment');
 Route::get('/about', AboutController::class)->name('about');
 
-// Route::get('/contact', [ContactController::class,'store'])->name('contact.store');
 Route::get('/contact', [ContactController::class,'create'])->name('contact.create');
+
+Route::post('/contact', [ContactController::class,'store'])->name('contact.store');
+
 
 
 require __DIR__.'/auth.php';

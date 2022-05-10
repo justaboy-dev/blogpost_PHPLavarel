@@ -107,44 +107,97 @@
                         <h2 class="display-4 mb-3 text-center">Drop Us a Line</h2>
                         <p class="lead text-center mb-10">Reach out to us from our contact form and we will get back to you
                             shortly.</p>
-                        <form class="contact-form needs-validation" method="POST" action="">
-                            <div class="messages"></div>
-                            <div class="row gx-4">
-                                <div class="col-md-6">
-                                    <x-contact-input name="first_name" placeholder="First Name" />
+                        <div class="alert alert-info global-success global-alert d-none"></div>
+                        <div>
+                            <form onsubmit="return false;" class="contact-form needs-validation" method="POST">
+                                @csrf
+                                <div class="messages"></div>
+                                <div class="row gx-4">
+                                    <div class="col-md-6">
+                                        <x-contact-input name="first_name" placeholder="First Name"
+                                            val="{{ old('first_name') }}" />
+                                    </div>
+                                    <!-- /column -->
+                                    <div class="col-md-6">
+                                        <x-contact-input name="last_name" placeholder="Last Name"
+                                            val="{{ old('last_name') }}" />
+                                    </div>
+                                    <!-- /column -->
+                                    <div class="col-md-12">
+                                        <x-contact-input name="email" placeholder="Email" type="email"
+                                            val="{{ old('email') }}" />
+                                    </div>
+                                    <!-- /column -->
+                                    <div class="col-md-12">
+                                        <x-contact-input value="{{ old('subject') }}" name="subject"
+                                            placeholder="Subject" />
+                                    </div>
+                                    <!-- /column -->
+                                    <div class="col-12">
+                                        <x-contact-textarea name="message" placeholder="Message" />
+                                    </div>
+                                    <div class="col-12 text-center">
+                                        <input type="submit" class="btn btn-primary rounded-pill btn-send mb-3"
+                                            id="send-message-button" value="Send message">
+                                        <p class="text-muted"><strong>*</strong> These fields are required.</p>
+                                    </div>
                                 </div>
-                                <!-- /column -->
-                                <div class="col-md-6">
-                                    <x-contact-input name="last_name" placeholder="Last Name" />
-                                </div>
-                                <!-- /column -->
-                                <div class="col-md-12">
-                                    <x-contact-input name="email" placeholder="Email" type="email" />
-                                </div>
-                                <!-- /column -->
-                                <div class="col-md-12">
-                                    <x-contact-input name="subject" placeholder="Subject" />
-                                </div>
-                                <!-- /column -->
-                                <div class="col-12">
-                                    <x-contact-textarea name="message" placeholder="Message" />
-                                </div>
-                                <div class="col-12 text-center">
-                                    <input type="submit" class="btn btn-primary rounded-pill btn-send mb-3"
-                                        value="Send message">
-                                    <p class="text-muted"><strong>*</strong> These fields are required.</p>
-                                </div>
-                            </div>
-                            <!-- /.row -->
-                        </form>
-                        <!-- /form -->
+                                <!-- /.row -->
+                            </form>
+                            <!-- /form -->
+                        </div>
+                        <!-- /column -->
                     </div>
-                    <!-- /column -->
+                    <!-- /.row -->
                 </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.container -->
+                <!-- /.container -->
         </section>
         <!-- /section -->
     </div>
+@endsection
+
+@section('custom-js')
+    <script>
+        $(document).on('click', '#send-message-button', (e) => {
+            e.preventDefault();
+            let $this = e.target;
+            let csrf_token = $($this).parents('form').find('input[name="_token"]').val();
+            let first_name = $($this).parents('form').find('input[name="first_name"]').val();
+            let last_name = $($this).parents('form').find('input[name="last_name"]').val();
+            let email = $($this).parents('form').find('input[name="email"]').val();
+            let subject = $($this).parents('form').find('input[name="subject"]').val();
+            let message = $($this).parents('form').find('textarea[name="message"]').val();
+            let formData = new FormData();
+            formData.append('first_name', first_name);
+            formData.append('last_name', last_name);
+            formData.append('email', email);
+            formData.append('subject', subject);
+            formData.append('message', message);
+            formData.append('_token', csrf_token);
+
+            $.ajax({
+                url: "{{ route('contact.store') }}",
+                type: 'POST',
+                contentType: false,
+                processData: false,
+                data: formData,
+                dataType: 'JSON',
+                success: function(data) {
+                    console.log(data);
+                    if (data.success) {
+                        $('.global-alert').removeClass('d-none');
+                        $($this).parents('form').trigger('reset');
+                    } else {
+                        $('.global-alert').removeClass('d-none').removeClass('global-success').addClass(
+                            'global-error');
+                    }
+                    $('.global-alert').text(data.message);
+                    $('.global-alert').fadeIn();
+                    setTimeout(() => {
+                        $('.global-alert').fadeOut();
+                    }, 3000);
+                }
+            })
+        })
+    </script>
 @endsection

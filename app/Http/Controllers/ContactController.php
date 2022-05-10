@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Contact;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactEmail;
+use Illuminate\Support\Facades\Validator;
 
 class ContactController extends Controller
 {
@@ -10,14 +14,35 @@ class ContactController extends Controller
     {
         return view('contact');
     }
-    public function store(Request $request)
+    public function store()
     {
-        $request->validate([
+        $data = array();
+        $data['error'] = [];
+        $data['success'] = 0;
+        $rules = [
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required|email',
-            'subject' => 'required',
-            'message' => 'required',
-        ]);
+            'subject' => 'required|min:5|max:50',
+            'message' => 'required|min:5|max:500',
+        ];
+
+        $validate = Validator::make(request()->all(), $rules);
+
+        if ($validate->fails()) {
+            $data['error']['first_name'] = $validate->errors()->first('first_name');
+            $data['error']['last_name'] = $validate->errors()->first('last_name');
+            $data['error']['email'] = $validate->errors()->first('email');
+            $data['error']['subject'] = $validate->errors()->first('subject');
+            $data['error']['message'] = $validate->errors()->first('message');
+            $data['message'] = 'Please check the form';
+        } else {
+            $attribute = $validate->validated();
+            $data['success'] = 1;
+            $data['message'] = 'Thank you for contacting us. We will get back to you as soon as possible.';
+            $contact = Contact::create($attribute);
+            // Mail::to(env('MAIL_TO_ADMIN'))->send(new ContactEmail($contact));
+        }
+        return response()->json($data);
     }
 }

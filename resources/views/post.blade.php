@@ -33,7 +33,7 @@
                 <div class="col-lg-10 mx-auto">
                     <div class="blog single mt-n17">
                         <div class="card">
-                            <figure class="card-img-top"><img src="{{ asset('template/assets/img/photos/b1.jpg') }}"
+                            <figure class="card-img-top"><img src="{{ asset('storage/' . $post->images->path) }}"
                                     alt=""></figure>
                             <div class="card-body">
                                 <div class="classic-view">
@@ -113,10 +113,11 @@
                                                 <div class="swiper-slide swiper-slide-active" role="group"
                                                     aria-label="1 / 4" style="width: 385px; margin-right: 30px;">
                                                     <article>
-                                                        <figure class="overlay overlay-1 hover-scale rounded mb-5"><a
-                                                                href="#">
+                                                        <figure class="overlay overlay-1 hover-scale rounded mb-5">
+                                                            <a href="#">
                                                                 <img src="{{ asset('storage/' . $same_author_post->images->path) }}"
-                                                                    alt=""><span class="bg"></span></a>
+                                                                    alt="">
+                                                            </a>
                                                             <figcaption>
                                                                 <h5 class="from-top mb-0">Read More</h5>
                                                             </figcaption>
