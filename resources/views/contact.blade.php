@@ -107,69 +107,33 @@
                         <h2 class="display-4 mb-3 text-center">Drop Us a Line</h2>
                         <p class="lead text-center mb-10">Reach out to us from our contact form and we will get back to you
                             shortly.</p>
-                        <form class="contact-form needs-validation" method="post" action="template/assets/php/contact.php"
-                            novalidate="">
+                        <form class="contact-form needs-validation" method="POST" action="">
                             <div class="messages"></div>
                             <div class="row gx-4">
                                 <div class="col-md-6">
-                                    <div class="form-floating mb-4">
-                                        <input id="form_name" type="text" name="name" class="form-control"
-                                            placeholder="Jane" required="">
-                                        <label for="form_name">First Name *</label>
-                                        <div class="valid-feedback"> Looks good! </div>
-                                        <div class="invalid-feedback"> Please enter your first name. </div>
-                                    </div>
+                                    <x-contact-input name="first_name" placeholder="First Name" />
                                 </div>
                                 <!-- /column -->
                                 <div class="col-md-6">
-                                    <div class="form-floating mb-4">
-                                        <input id="form_lastname" type="text" name="surname" class="form-control"
-                                            placeholder="Doe" required="">
-                                        <label for="form_lastname">Last Name *</label>
-                                        <div class="valid-feedback"> Looks good! </div>
-                                        <div class="invalid-feedback"> Please enter your last name. </div>
-                                    </div>
+                                    <x-contact-input name="last_name" placeholder="Last Name" />
                                 </div>
                                 <!-- /column -->
-                                <div class="col-md-6">
-                                    <div class="form-floating mb-4">
-                                        <input id="form_email" type="email" name="email" class="form-control"
-                                            placeholder="jane.doe@example.com" required="">
-                                        <label for="form_email">Email *</label>
-                                        <div class="valid-feedback"> Looks good! </div>
-                                        <div class="invalid-feedback"> Please provide a valid email address. </div>
-                                    </div>
+                                <div class="col-md-12">
+                                    <x-contact-input name="email" placeholder="Email" type="email" />
                                 </div>
                                 <!-- /column -->
-                                <div class="col-md-6">
-                                    <div class="form-select-wrapper mb-4">
-                                        <select class="form-select" id="form-select" name="department" required="">
-                                            <option selected="" disabled="" value="">Select a department</option>
-                                            <option value="Sales">Sales</option>
-                                            <option value="Marketing">Marketing</option>
-                                            <option value="Customer Support">Customer Support</option>
-                                        </select>
-                                        <div class="valid-feedback"> Looks good! </div>
-                                        <div class="invalid-feedback"> Please select a department. </div>
-                                    </div>
+                                <div class="col-md-12">
+                                    <x-contact-input name="subject" placeholder="Subject" />
                                 </div>
                                 <!-- /column -->
                                 <div class="col-12">
-                                    <div class="form-floating mb-4">
-                                        <textarea id="form_message" name="message" class="form-control" placeholder="Your message" style="height: 150px"
-                                            required=""></textarea>
-                                        <label for="form_message">Message *</label>
-                                        <div class="valid-feedback"> Looks good! </div>
-                                        <div class="invalid-feedback"> Please enter your messsage. </div>
-                                    </div>
+                                    <x-contact-textarea name="message" placeholder="Message" />
                                 </div>
-                                <!-- /column -->
                                 <div class="col-12 text-center">
                                     <input type="submit" class="btn btn-primary rounded-pill btn-send mb-3"
                                         value="Send message">
                                     <p class="text-muted"><strong>*</strong> These fields are required.</p>
                                 </div>
-                                <!-- /column -->
                             </div>
                             <!-- /.row -->
                         </form>

@@ -2,21 +2,24 @@
 @section('tittle', 'Blogpost | SinglePost')
 @section('content')
     <section class="wrapper bg-soft-primary">
-        <div class="container pt-10 pb-19 pt-md-14 pb-md-20 text-center">
+        <div class="container pt-10 pb-19 pt-md-10 pb-md-20 text-center">
             <div class="row">
                 <div class="col-md-10 col-xl-8 mx-auto">
                     <div class="post-header">
-                        <div class="post-category text-line">
-                            <a href="#" class="hover" rel="category">Teamwork</a>
+                        <div class="post-category">
+                            <a href="#" class="hover" rel="category">{{ $post->categories->name }}</a>
                         </div>
-                        <h1 class="display-1 mb-4">Commodo Dolor Bibendum Parturient Cursus Mollis</h1>
+                        <h1 class="display-1 mb-4">{{ $post->tittle }}</h1>
                         <ul class="post-meta mb-5">
-                            <li class="post-date"><i class="uil uil-calendar-alt"></i><span>5 Jul 2021</span></li>
-                            <li class="post-author"><a href="#"><i class="uil uil-user"></i><span>By Sandbox</span></a>
+                            <li class="post-date"><i
+                                    class="uil uil-calendar-alt"></i><span>{{ $post->created_at->diffForHumans() }}</span>
                             </li>
-                            <li class="post-comments"><a href="#"><i class="uil uil-comment"></i>3<span>
-                                        Comments</span></a></li>
-                            <li class="post-likes"><a href="#"><i class="uil uil-heart-alt"></i>3<span> Likes</span></a>
+                            <li class="post-author"><a href="#"><i class="uil uil-user"></i><span>By
+                                        {{ $post->author->name }}</span></a>
+                            </li>
+                            <li class="post-comments"><a href="#comments"><i
+                                        class="uil uil-comment"></i>{{ count($post->comments) }}<span> Comments</span></a>
+                            </li>
                             </li>
                         </ul>
                     </div>
@@ -36,95 +39,18 @@
                                 <div class="classic-view">
                                     <article class="post">
                                         <div class="post-content mb-5">
-                                            <h2 class="h1 mb-4">Cras mattis consectetur purus fermentum</h2>
-                                            <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-                                                fermentum massa justo sit amet. Vivamus sagittis lacus vel augue laoreet
-                                                rutrum faucibus dolor auctor. Cras mattis consectetur purus sit amet
-                                                fermentum. Aenean lacinia bibendum nulla sed consectetur. Curabitur blandit
-                                                tempus porttitor. Vivamus sagittis lacus vel augue laoreet rutrum faucibus
-                                                dolor auctor. Nullam quis risus eget porta ac consectetur vestibulum.</p>
-                                            <p>Donec sed odio dui consectetur adipiscing elit. Etiam adipiscing tincidunt
-                                                elit, eu convallis felis suscipit ut. Phasellus rhoncus tincidunt auctor.
-                                                Nullam eu sagittis mauris. Donec non dolor ac elit aliquam tincidunt at at
-                                                sapien. Aenean tortor libero, condimentum ac laoreet vitae, varius tempor
-                                                nisi. Duis non arcu vel lectus urna mollis ornare vel eu leo.</p>
-                                            <div class="row g-6 mt-3 mb-10">
-                                                <div class="col-md-6">
-                                                    <figure class="hover-scale rounded cursor-dark"><a
-                                                            href="{{ asset('template/assets/img/photos/b8-full.jpg') }}"
-                                                            data-glightbox="title: Heading; description: Purus Vulputate Sem Tellus Quam"
-                                                            data-gallery="post"> <img
-                                                                src="{{ asset('template/assets/img/photos/b8.jpg') }}"
-                                                                alt=""></a></figure>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <figure class="hover-scale rounded cursor-dark"><a
-                                                            href="{{ asset('template/assets/img/photos/b9-full.jpg') }}"
-                                                            data-glightbox="" data-gallery="post"> <img
-                                                                src="{{ asset('template/assets/img/photos/b9.jpg') }}"
-                                                                alt=""></a></figure>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <figure class="hover-scale rounded cursor-dark"><a
-                                                            href="{{ asset('template/assets/img/photos/b10-full.jpg') }}"
-                                                            data-glightbox="" data-gallery="post"> <img
-                                                                src="{{ asset('template/assets/img/photos/b10.jpg') }}"
-                                                                alt=""></a></figure>
-                                                </div>
-
-                                                <div class="col-md-6">
-                                                    <figure class="hover-scale rounded cursor-dark"><a
-                                                            href="{{ asset('template/assets/img/photos/b11-full.jpg') }}"
-                                                            data-glightbox="" data-gallery="post"> <img
-                                                                src="{{ asset('template/assets/img/photos/b11.jpg') }}"
-                                                                alt=""></a></figure>
-                                                </div>
-
-                                            </div>
-
-                                            <p>Maecenas sed diam eget risus varius blandit sit amet non magna. Cum sociis
-                                                natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                                                Donec sed odio dui. Nulla vitae elit libero, a pharetra augue. Maecenas
-                                                faucibus mollis interdum. Donec id elit non mi porta gravida at eget metus.
-                                                Nullam quis risus eget urna mollis ornare vel eu leo. Lorem ipsum dolor sit
-                                                amet, consectetur adipiscing elit. Sed posuere consectetur est at lobortis.
-                                                Cras mattis consectetur purus sit amet fermentum. Praesent commodo cursus
-                                                magna.</p>
-                                            <blockquote class="fs-lg my-8">
-                                                <p>Sed posuere consectetur est at lobortis. Lorem ipsum dolor sit amet,
-                                                    consectetur adipiscing elit. Duis mollis, est non commodo luctus, nisi
-                                                    erat porttitor ligula lacinia odio sem nec elit purus.</p>
-                                                <footer class="blockquote-footer">Very important person</footer>
-                                            </blockquote>
-                                            <h3 class="h2 mb-4">Sit Vulputate Bibendum Purus</h3>
-                                            <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-                                                fermentum massa justo sit amet risus. Aenean lacinia bibendum nulla sed
-                                                consectetur. Cras mattis consectetur purus sit amet fermentum. Praesent
-                                                commodo cursus magna, vel scelerisque nisl consectetur et. Vestibulum id
-                                                ligula porta felis euismod semper.</p>
-                                            <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut
-                                                fermentum massa justo sit amet risus. Donec sed odio dui. Cras justo odio,
-                                                dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus
-                                                commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet
-                                                risus. Sed posuere consectetur est at lobortis. Donec id elit non mi porta
-                                                gravida at eget metus. Nulla vitae elit libero, a pharetra augue. Cum sociis
-                                                natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-                                                Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh.</p>
+                                            {{ $post->body }}
                                         </div>
 
                                         <div
                                             class="post-footer d-md-flex flex-md-row justify-content-md-between align-items-center mt-8">
                                             <div>
                                                 <ul class="list-unstyled tag-list mb-0">
-                                                    <li><a href="#" class="btn btn-soft-ash btn-sm rounded-pill mb-0">Still
-                                                            Life</a></li>
-                                                    <li><a href="#"
-                                                            class="btn btn-soft-ash btn-sm rounded-pill mb-0">Urban</a></li>
-                                                    <li><a href="#"
-                                                            class="btn btn-soft-ash btn-sm rounded-pill mb-0">Nature</a>
-                                                    </li>
+                                                    @foreach ($post->tags as $tag)
+                                                        <li><a href="#"
+                                                                class="btn btn-soft-ash btn-sm rounded-pill mb-0">{{ $tag->name }}</a>
+                                                        </li>
+                                                    @endforeach
                                                 </ul>
                                             </div>
                                             <div class="mb-0 mb-md-2">
@@ -156,10 +82,10 @@
                                 <div class="author-info d-md-flex align-items-center mb-3">
                                     <div class="d-flex align-items-center">
                                         <figure class="user-avatar"><img class="rounded-circle" alt=""
-                                                src="{{ asset('template/assets/img/avatars/u5.jpg') }}"></figure>
+                                                src="{{ $post->author->images ? asset('storage/' . $post->author->images->path) : asset('storage/images/user.png') }}">
+                                        </figure>
                                         <div>
-                                            <h6><a href="#" class="link-dark">Nikolas Brooten</a></h6>
-                                            <span class="post-meta fs-15">Sales Manager</span>
+                                            <h6><a href="#" class="link-dark">{{ $post->author->name }}</a></h6>
                                         </div>
                                     </div>
                                     <div class="mt-3 mt-md-0 ms-auto">
@@ -168,10 +94,6 @@
                                                 class="uil uil-file-alt"></i> All Posts</a>
                                     </div>
                                 </div>
-
-                                <p>Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum
-                                    massa justo sit amet risus. Maecenas faucibus mollis interdum. Fusce dapibus, tellus ac.
-                                    Maecenas faucibus mollis interdum.</p>
                                 <nav class="nav social">
                                     <a href="#"><i class="uil uil-twitter"></i></a>
                                     <a href="#"><i class="uil uil-facebook-f"></i></a>
@@ -187,346 +109,112 @@
                                     <div class="swiper swiper-initialized swiper-horizontal swiper-pointer-events">
                                         <div class="swiper-wrapper" id="swiper-wrapper-4ec29683c7bd81f7" aria-live="off"
                                             style="cursor: grab; transform: translate3d(0px, 0px, 0px);">
-                                            <div class="swiper-slide swiper-slide-active" role="group" aria-label="1 / 4"
-                                                style="width: 385px; margin-right: 30px;">
-                                                <article>
-                                                    <figure class="overlay overlay-1 hover-scale rounded mb-5"><a href="#">
-                                                            <img src="{{ asset('template/assets/img/photos/b4.jpg') }}"
-                                                                alt=""><span class="bg"></span></a>
-                                                        <figcaption>
-                                                            <h5 class="from-top mb-0">Read More</h5>
-                                                        </figcaption>
-                                                    </figure>
-                                                    <div class="post-header">
-                                                        <div class="post-category text-line">
-                                                            <a href="#" class="hover" rel="category">Coding</a>
+                                            @foreach ($same_author_posts as $same_author_post)
+                                                <div class="swiper-slide swiper-slide-active" role="group"
+                                                    aria-label="1 / 4" style="width: 385px; margin-right: 30px;">
+                                                    <article>
+                                                        <figure class="overlay overlay-1 hover-scale rounded mb-5"><a
+                                                                href="#">
+                                                                <img src="{{ asset('storage/' . $same_author_post->images->path) }}"
+                                                                    alt=""><span class="bg"></span></a>
+                                                            <figcaption>
+                                                                <h5 class="from-top mb-0">Read More</h5>
+                                                            </figcaption>
+                                                        </figure>
+                                                        <div class="post-header">
+                                                            <div class="post-category text-line">
+                                                                <a href="#" class="hover"
+                                                                    rel="category">{{ $same_author_post->categories->name }}</a>
+                                                            </div>
+
+                                                            <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark"
+                                                                    href="{{ route('posts.show', $same_author_post) }}">{{ $same_author_post->tittle }}</a>
+                                                            </h2>
                                                         </div>
 
-                                                        <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark"
-                                                                href="./blog-post.html">Ligula tristique quis risus</a></h2>
-                                                    </div>
+                                                        <div class="post-footer">
+                                                            <ul class="post-meta mb-0">
+                                                                <li class="post-date"><i
+                                                                        class="uil uil-calendar-alt"></i><span>{{ $same_author_post->created_at->diffForHumans() }}</span>
+                                                                </li>
+                                                                <li class="post-comments"><a href="#"><i
+                                                                            class="uil uil-comment"></i>{{ count($same_author_post->comments) }}</a>
+                                                                </li>
+                                                            </ul>
 
-                                                    <div class="post-footer">
-                                                        <ul class="post-meta mb-0">
-                                                            <li class="post-date"><i
-                                                                    class="uil uil-calendar-alt"></i><span>14 Apr
-                                                                    2021</span></li>
-                                                            <li class="post-comments"><a href="#"><i
-                                                                        class="uil uil-comment"></i>4</a></li>
-                                                        </ul>
-
-                                                    </div>
-
-                                                </article>
-
-                                            </div>
-
-                                            <div class="swiper-slide swiper-slide-next" role="group" aria-label="2 / 4"
-                                                style="width: 385px; margin-right: 30px;">
-                                                <article>
-                                                    <figure class="overlay overlay-1 hover-scale rounded mb-5"><a href="#">
-                                                            <img src="{{ asset('template/assets/img/photos/b5.jpg') }}"
-                                                                alt=""><span class="bg"></span></a>
-                                                        <figcaption>
-                                                            <h5 class="from-top mb-0">Read More</h5>
-                                                        </figcaption>
-                                                    </figure>
-                                                    <div class="post-header">
-                                                        <div class="post-category text-line">
-                                                            <a href="#" class="hover" rel="category">Workspace</a>
                                                         </div>
 
-                                                        <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark"
-                                                                href="./blog-post.html">Nullam id dolor elit id nibh</a>
-                                                        </h2>
-                                                    </div>
+                                                    </article>
 
-                                                    <div class="post-footer">
-                                                        <ul class="post-meta mb-0">
-                                                            <li class="post-date"><i
-                                                                    class="uil uil-calendar-alt"></i><span>29 Mar
-                                                                    2021</span></li>
-                                                            <li class="post-comments"><a href="#"><i
-                                                                        class="uil uil-comment"></i>3</a></li>
-                                                        </ul>
-
-                                                    </div>
-
-                                                </article>
-
-                                            </div>
-
-                                            <div class="swiper-slide" style="width: 385px; margin-right: 30px;"
-                                                role="group" aria-label="3 / 4">
-                                                <article>
-                                                    <figure class="overlay overlay-1 hover-scale rounded mb-5"><a href="#">
-                                                            <img src="{{ asset('template/assets/img/photos/b6.jpg') }}"
-                                                                alt=""><span class="bg"></span></a>
-                                                        <figcaption>
-                                                            <h5 class="from-top mb-0">Read More</h5>
-                                                        </figcaption>
-                                                    </figure>
-                                                    <div class="post-header">
-                                                        <div class="post-category text-line">
-                                                            <a href="#" class="hover" rel="category">Meeting</a>
-                                                        </div>
-
-                                                        <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark"
-                                                                href="./blog-post.html">Ultricies fusce porta elit</a></h2>
-                                                    </div>
-
-                                                    <div class="post-footer">
-                                                        <ul class="post-meta mb-0">
-                                                            <li class="post-date"><i
-                                                                    class="uil uil-calendar-alt"></i><span>26 Feb
-                                                                    2021</span></li>
-                                                            <li class="post-comments"><a href="#"><i
-                                                                        class="uil uil-comment"></i>6</a></li>
-                                                        </ul>
-
-                                                    </div>
-
-                                                </article>
-
-                                            </div>
-
-                                            <div class="swiper-slide" role="group" aria-label="4 / 4"
-                                                style="width: 385px; margin-right: 30px;">
-                                                <article>
-                                                    <figure class="overlay overlay-1 hover-scale rounded mb-5"><a href="#">
-                                                            <img src="{{ asset('template/assets/img/photos/b7.jpg') }}"
-                                                                alt=""><span class="bg"></span></a>
-                                                        <figcaption>
-                                                            <h5 class="from-top mb-0">Read More</h5>
-                                                        </figcaption>
-                                                    </figure>
-                                                    <div class="post-header">
-                                                        <div class="post-category text-line">
-                                                            <a href="#" class="hover" rel="category">Business
-                                                                Tips</a>
-                                                        </div>
-
-                                                        <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark"
-                                                                href="./blog-post.html">Morbi leo risus porta eget</a></h2>
-                                                    </div>
-                                                    <div class="post-footer">
-                                                        <ul class="post-meta mb-0">
-                                                            <li class="post-date"><i
-                                                                    class="uil uil-calendar-alt"></i><span>7 Jan
-                                                                    2021</span></li>
-                                                            <li class="post-comments"><a href="#"><i
-                                                                        class="uil uil-comment"></i>2</a></li>
-                                                        </ul>
-
-                                                    </div>
-
-                                                </article>
-
-                                            </div>
-
+                                                </div>
+                                            @endforeach
                                         </div>
-
                                         <span class="swiper-notification" aria-live="assertive" aria-atomic="true"></span>
                                     </div>
-
                                     <div class="swiper-controls">
                                         <div
                                             class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets swiper-pagination-horizontal">
                                             <span class="swiper-pagination-bullet swiper-pagination-bullet-active"
-                                                tabindex="0" role="button" aria-label="Go to slide 1"
-                                                aria-current="true"></span><span class="swiper-pagination-bullet"
-                                                tabindex="0" role="button" aria-label="Go to slide 2"></span><span
-                                                class="swiper-pagination-bullet" tabindex="0" role="button"
-                                                aria-label="Go to slide 3"></span>
+                                                tabindex="0" role="button" aria-current="true"></span><span
+                                                class="swiper-pagination-bullet" tabindex="0" role="button"></span><span
+                                                class="swiper-pagination-bullet" tabindex="0" role="button"></span>
                                         </div>
                                     </div>
                                 </div>
 
                                 <hr>
                                 <div id="comments">
-                                    <h3 class="mb-6">5 Comments</h3>
+                                    <h3 class="mb-6">{{ count($post->comments) }} Comments</h3>
                                     <ol id="singlecomments" class="commentlist">
-                                        <li class="comment">
-                                            <div class="comment-header d-md-flex align-items-center">
-                                                <div class="d-flex align-items-center">
-                                                    <figure class="user-avatar"><img class="rounded-circle" alt=""
-                                                            src="{{ asset('template/assets/img/avatars/u1.jpg') }}">
-                                                    </figure>
-                                                    <div>
-                                                        <h6 class="comment-author"><a href="#"
-                                                                class="link-dark">Connor Gibson</a></h6>
-                                                        <ul class="post-meta">
-                                                            <li><i class="uil uil-calendar-alt"></i>14 Jan 2021</li>
-                                                        </ul>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="mt-3 mt-md-0 ms-auto">
-                                                    <a href="#"
-                                                        class="btn btn-soft-ash btn-sm rounded-pill btn-icon btn-icon-start mb-0"><i
-                                                            class="uil uil-comments"></i> Reply</a>
-                                                </div>
-
-                                            </div>
-
-                                            <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis
-                                                vestibulum. Duis mollis, est non commodo luctus, nisi erat porttitor ligula,
-                                                eget lacinia odio sem nec elit. Sed posuere consectetur est at lobortis
-                                                integer posuere erat ante.</p>
-                                        </li>
-                                        <li class="comment">
-                                            <div class="comment-header d-md-flex align-items-center">
-                                                <div class="d-flex align-items-center">
-                                                    <figure class="user-avatar"><img class="rounded-circle" alt=""
-                                                            src="{{ asset('template/assets/img/avatars/u2.jpg') }}">
-                                                    </figure>
-                                                    <div>
-                                                        <h6 class="comment-author"><a href="#"
-                                                                class="link-dark">Nikolas Brooten</a></h6>
-                                                        <ul class="post-meta">
-                                                            <li><i class="uil uil-calendar-alt"></i>21 Feb 2021</li>
-                                                        </ul>
-
-                                                    </div>
-
-                                                </div>
-
-                                                <div class="mt-3 mt-md-0 ms-auto">
-                                                    <a href="#"
-                                                        class="btn btn-soft-ash btn-sm rounded-pill btn-icon btn-icon-start mb-0"><i
-                                                            class="uil uil-comments"></i> Reply</a>
-                                                </div>
-
-                                            </div>
-
-                                            <p>Quisque tristique tincidunt metus non aliquam. Quisque ac risus sit amet quam
-                                                sollicitudin vestibulum vitae malesuada libero. Mauris magna elit, suscipit
-                                                non ornare et, blandit a tellus. Pellentesque dignissim ornare faucibus
-                                                mollis.</p>
-                                            <ul class="children">
-                                                <li class="comment">
-                                                    <div class="comment-header d-md-flex align-items-center">
-                                                        <div class="d-flex align-items-center">
-                                                            <figure class="user-avatar"><img class="rounded-circle"
-                                                                    alt="" src="./assets/img/avatars/u3.jpg"></figure>
-                                                            <div>
-                                                                <h6 class="comment-author"><a href="#"
-                                                                        class="link-dark">Pearce Frye</a></h6>
-                                                                <ul class="post-meta">
-                                                                    <li><i class="uil uil-calendar-alt"></i>22 Feb 2021
-                                                                    </li>
-                                                                </ul>
-
-                                                            </div>
+                                        @foreach ($post->comments->sortByDesc('created_at') as $comment)
+                                            <li class="comment" id="comment_{{ $comment->id }}">
+                                                <div class="comment-header d-md-flex align-items-center">
+                                                    <div class="d-flex align-items-center">
+                                                        <figure class="user-avatar "><img
+                                                                class="rounded-circle-height-avatar" alt=""
+                                                                src="{{ $comment->user->images ? asset('storage/' . $comment->user->images->path) : asset('storage/images/user.png') }}">
+                                                        </figure>
+                                                        <div>
+                                                            <h6 class="comment-author"><a href="#"
+                                                                    class="link-dark">{{ $comment->user->name }}</a>
+                                                            </h6>
+                                                            <ul class="post-meta">
+                                                                <li><i
+                                                                        class="uil uil-calendar-alt"></i>{{ $comment->created_at->diffForHumans() }}
+                                                                </li>
+                                                            </ul>
 
                                                         </div>
 
-                                                        <div class="mt-3 mt-md-0 ms-auto">
-                                                            <a href="#"
-                                                                class="btn btn-soft-ash btn-sm rounded-pill btn-icon btn-icon-start mb-0"><i
-                                                                    class="uil uil-comments"></i> Reply</a>
-                                                        </div>
-
                                                     </div>
-
-                                                    <p>Cras mattis consectetur purus sit amet fermentum. Integer posuere
-                                                        erat a ante venenatis dapibus posuere velit aliquet. Etiam porta sem
-                                                        malesuada magna mollis.</p>
-                                                    <ul class="children">
-                                                        <li class="comment">
-                                                            <div class="comment-header d-md-flex align-items-center">
-                                                                <div class="d-flex align-items-center">
-                                                                    <figure class="user-avatar"><img
-                                                                            class="rounded-circle" alt=""
-                                                                            src="{{ asset('template/assets/img/avatars/u2.jpg') }}">
-                                                                    </figure>
-                                                                    <div>
-                                                                        <h6 class="comment-author"><a href="#"
-                                                                                class="link-dark">Nikolas Brooten</a>
-                                                                        </h6>
-                                                                        <ul class="post-meta">
-                                                                            <li><i class="uil uil-calendar-alt"></i>4 Apr
-                                                                                2021</li>
-                                                                        </ul>
-
-                                                                    </div>
-
-                                                                </div>
-
-                                                                <div class="mt-3 mt-md-0 ms-auto">
-                                                                    <a href="#"
-                                                                        class="btn btn-soft-ash btn-sm rounded-pill btn-icon btn-icon-start mb-0"><i
-                                                                            class="uil uil-comments"></i> Reply</a>
-                                                                </div>
-
-                                                            </div>
-
-                                                            <p>Nullam id dolor id nibh ultricies vehicula ut id. Cras mattis
-                                                                consectetur purus sit amet fermentum. Aenean eu leo quam.
-                                                                Pellentesque ornare sem lacinia aenean bibendum nulla
-                                                                consectetur.</p>
-                                                        </li>
-                                                    </ul>
-                                                </li>
-                                            </ul>
-                                        </li>
-                                        <li class="comment">
-                                            <div class="comment-header d-md-flex align-items-center">
-                                                <div class="d-flex align-items-center">
-                                                    <figure class="user-avatar"><img class="rounded-circle" alt=""
-                                                            src="{{ asset('template/assets/img/avatars/u4.jpg') }}">
-                                                    </figure>
-                                                    <div>
-                                                        <h6 class="comment-author"><a href="#" class="link-dark">Lou
-                                                                Bloxham</a></h6>
-                                                        <ul class="post-meta">
-                                                            <li><i class="uil uil-calendar-alt"></i>3 May 2021</li>
-                                                        </ul>
-
-                                                    </div>
-
                                                 </div>
-
-                                                <div class="mt-3 mt-md-0 ms-auto">
-                                                    <a href="#"
-                                                        class="btn btn-soft-ash btn-sm rounded-pill btn-icon btn-icon-start mb-0"><i
-                                                            class="uil uil-comments"></i> Reply</a>
-                                                </div>
-
-                                            </div>
-
-                                            <p>Sed posuere consectetur est at lobortis. Vestibulum id ligula porta felis
-                                                euismod semper. Cum sociis natoque penatibus et magnis dis parturient
-                                                montes, nascetur ridiculus mus.</p>
-                                        </li>
+                                                <p>
+                                                    {{ $comment->the_comment }}
+                                                </p>
+                                            </li>
+                                        @endforeach
                                     </ol>
                                 </div>
-
-                                <hr>
-                                <h3 class="mb-3">Would you like to share your thoughts?</h3>
-                                <p class="mb-7">Your email address will not be published. Required fields are
-                                    marked *</p>
-                                <form class="comment-form">
-                                    <div class="form-floating mb-4">
-                                        <input type="text" class="form-control" placeholder="Name*" id="c-name">
-                                        <label for="c-name">Name *</label>
-                                    </div>
-                                    <div class="form-floating mb-4">
-                                        <input type="email" class="form-control" placeholder="Email*" id="c-email">
-                                        <label for="c-email">Email*</label>
-                                    </div>
-                                    <div class="form-floating mb-4">
-                                        <input type="text" class="form-control" placeholder="Website" id="c-web">
-                                        <label for="c-web">Website</label>
-                                    </div>
-                                    <div class="form-floating mb-4">
-                                        <textarea name="textarea" class="form-control" placeholder="Comment" style="height: 150px"></textarea>
-                                        <label>Comment *</label>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary rounded-pill mb-0">Submit</button>
-                                </form>
+                                @auth
+                                    <hr>
+                                    <h3 class="mb-3">Would you like to share your thoughts?</h3>
+                                    <x-message :status="'success'" />
+                                    <form class="comment-form" method="POST"
+                                        action="{{ route('posts.add_comment', $post) }}">
+                                        @csrf
+                                        <div class="form-floating mb-4">
+                                            <textarea name="the_comment" class="form-control" placeholder="Comment" style="height: 250px"></textarea>
+                                            <label>Comment *</label>
+                                        </div>
+                                        <button type="submit" class="btn btn-primary rounded-pill mb-0">Submit</button>
+                                    </form>
+                                @endauth
+                                @guest
+                                    <hr>
+                                    <h3 class="mb-3">Would you like to share your thoughts?</h3>
+                                    <p>Please <a href="{{ route('login') }}">login</a> or <a
+                                            href="{{ route('register') }}">register</a> to post a comment.</p>
+                                @endguest
                             </div>
                         </div>
                     </div>

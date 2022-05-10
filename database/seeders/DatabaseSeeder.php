@@ -35,11 +35,11 @@ class DatabaseSeeder extends Seeder
         Schema::enableForeignKeyConstraints();
 
         Role::factory(1)->create();
-        Category::factory(10)->create();
-        $user = User::factory(10)->create();
-        $post = Post::factory(100)->create();
-        Comment::factory(100)->create();
-        Tag::factory(100)->create();
+        Category::factory(4)->create();
+        $user = User::factory(7)->create();
+        $post = Post::factory(1)->create();
+        Comment::factory(3)->create();
+        Tag::factory(2)->create();
 
 
         foreach ($user as $u) {

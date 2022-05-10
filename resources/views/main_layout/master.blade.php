@@ -13,7 +13,6 @@
     <link rel="shortcut icon" href="{{ asset('template/assets/img/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('template/assets/css/plugins.css') }}">
     <link rel="stylesheet" href="{{ asset('template/assets/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('template/assets/css/custom.css') }}">
     @yield('custom-css')
 </head>
 
@@ -50,7 +49,7 @@
                                 <a class="nav-link" href="{{ route('about') }}">ABOUT US</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('contact') }}">CONTACT</a>
+                                <a class="nav-link" href="{{ route('contact.create') }}">CONTACT</a>
                             </li>
 
                         </ul>
@@ -103,20 +102,6 @@
         </nav>
         <!-- /.navbar -->
     </header>
-    <section class="wrapper bg-soft-primary">
-        <div class="container py-12 py-md-16 text-center">
-            <div class="row">
-                <div class="col-md-7 col-lg-6 col-xl-5 mx-auto">
-                    <h1 class="display-1 mb-3">Business News</h1>
-                    <p class="lead px-lg-5 px-xxl-8 mb-1">Welcome to our journal. Here you can find the latest company
-                        news and business articles.</p>
-                </div>
-                <!-- /column -->
-            </div>
-            <!-- /.row -->
-        </div>
-        <!-- /.container -->
-    </section>
     <div class="content-wrapper">
         <section class="wrapper bg-light wrapper-border">
             <div class="container inner py-8">
@@ -152,7 +137,7 @@
         </section>
         <!-- /section -->
         <section class="wrapper bg-light">
-            <div class="container py-14 py-md-16">
+            <div class="container py-14 py-md-8">
                 <div class="row gx-lg-8 gx-xl-12">
                     @yield('content')
                 </div>
