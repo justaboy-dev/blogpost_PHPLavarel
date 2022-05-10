@@ -21,7 +21,7 @@
         <nav class="navbar navbar-expand-lg center-nav navbar-light navbar-bg-light">
             <div class="container flex-lg-row flex-nowrap align-items-center">
                 <div class="navbar-brand w-100">
-                    <a href="./index.html">
+                    <a href="{{ route('home') }}">
                         <img src="{{ asset('template/assets/img/logo.png') }}"
                             srcset="{{ asset('template/assets/img/logo@2x.png 2x') }}" alt="">
                     </a>

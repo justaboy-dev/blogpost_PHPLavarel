@@ -1,6 +1,6 @@
 @extends('main_layout.master')
 
-@section('tittle', 'Blogpost | Home')
+@section('tittle', $category->name . ' | Home')
 
 @section('content')
     <div class="col-lg-8">
@@ -62,7 +62,7 @@
                     </div>
                 </article>
             @empty
-                <h3>No posts found</h3>
+                <h3>There are no posts related to this category</h3>
             @endforelse
         </div>
         {{ $posts->onEachSide(0)->links() }}
