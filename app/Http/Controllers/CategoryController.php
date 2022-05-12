@@ -11,12 +11,14 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return view('category');
+        return view('category.index', [
+            'categories' => Category::withCount('posts')->orderBy('posts_count','DESC')->paginate(12),
+        ]);
     }
     public function show(Category $category)
     {
         $popular_post = Post::withCount('comments') ->orderBy('comments_count', 'desc')->take(5)->get();
-        $categories = Category::withCount('posts')->take(10)->get();
+        $categories = Category::withCount('posts')->orderBy('posts_count','DESC')->take(10)->get();
         $tags = Tag::withCount('posts')->get();
         return view('category.show',[
             'category' => $category,

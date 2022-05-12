@@ -7,14 +7,16 @@
                 <div class="col-md-10 col-xl-8 mx-auto">
                     <div class="post-header">
                         <div class="post-category">
-                            <a href="#" class="hover" rel="category">{{ $post->categories->name }}</a>
+                            <a href="{{ route('category.show', $post->categories) }}" class="hover"
+                                rel="category">{{ $post->categories->name }}</a>
                         </div>
                         <h1 class="display-1 mb-4">{{ $post->tittle }}</h1>
                         <ul class="post-meta mb-5">
                             <li class="post-date"><i
                                     class="uil uil-calendar-alt"></i><span>{{ $post->created_at->diffForHumans() }}</span>
                             </li>
-                            <li class="post-author"><a href="#"><i class="uil uil-user"></i><span>By
+                            <li class="post-author"><a href="{{ route('author.show', $post->author) }}"><i
+                                        class="uil uil-user"></i><span>By
                                         {{ $post->author->name }}</span></a>
                             </li>
                             <li class="post-comments"><a href="#comments"><i
@@ -89,7 +91,7 @@
                                         </div>
                                     </div>
                                     <div class="mt-3 mt-md-0 ms-auto">
-                                        <a href="#"
+                                        <a href="{{ route('author.show', $post->author) }}"
                                             class="btn btn-sm btn-soft-ash rounded-pill btn-icon btn-icon-start mb-0"><i
                                                 class="uil uil-file-alt"></i> All Posts</a>
                                     </div>
@@ -103,7 +105,7 @@
                                 </nav>
 
                                 <hr>
-                                <h3 class="mb-6">You Might Also Like</h3>
+                                <h3 class="mb-6">Same post author</h3>
                                 <div class="swiper-container blog grid-view mb-16 swiper-container-0" data-margin="30"
                                     data-dots="true" data-items-md="2" data-items-xs="1">
                                     <div class="swiper swiper-initialized swiper-horizontal swiper-pointer-events">
@@ -138,7 +140,8 @@
                                                                 <li class="post-date"><i
                                                                         class="uil uil-calendar-alt"></i><span>{{ $same_author_post->created_at->diffForHumans() }}</span>
                                                                 </li>
-                                                                <li class="post-comments"><a href="#"><i
+                                                                <li class="post-comments"><a
+                                                                        href="{{ route('posts.show', $same_author_post) . '#comments' }}"><i
                                                                             class="uil uil-comment"></i>{{ count($same_author_post->comments) }}</a>
                                                                 </li>
                                                             </ul>

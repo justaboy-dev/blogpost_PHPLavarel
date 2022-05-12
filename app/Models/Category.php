@@ -10,10 +10,18 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 'slug',];
+        'name', 'slug'];
 
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function images()
+    {
+        return $this->morphOne(Image::class, 'imageable');
     }
 }

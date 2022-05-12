@@ -22912,10 +22912,15 @@ blockquote.text-center.icon-top:before {
 .filter:not(.basic-filter) ul li a {
     text-transform: uppercase;
     letter-spacing: 0.02rem;
-    font-size: 0.7rem;
+    font-size: 0.8rem;
     font-weight: 700;
     color: #aab0bc;
 }
+
+.badge{
+    padding: 0.4rem 0;
+}
+
 .meta {
     font-size: 0.65rem;
 }
@@ -30334,15 +30339,14 @@ button.hamburger span {
     color: #fff;
 }
 .card {
-    box-shadow: 0 0 0 0.05rem rgba(8, 60, 130, 0.06),
-        0rem 0rem 1.25rem rgba(30, 34, 40, 0.04);
     border: 0;
 }
 .card[class*="bg-"] {
     box-shadow: none !important;
 }
 .card-img-top img {
-    max-height: 400px;
+    height: 400px;
+    object-fit: cover;
     border-top-left-radius: 0.4rem;
     border-top-right-radius: 0.4rem;
 }

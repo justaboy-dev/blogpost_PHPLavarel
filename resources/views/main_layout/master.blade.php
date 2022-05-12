@@ -38,11 +38,14 @@
                                 <a class="nav-link" href="{{ route('home') }}">HOME</a>
                             </li>
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">CATEGORIES</a>
+                                <a class="nav-link dropdown-toggle"
+                                    href="{{ route('category.index') }}">CATEGORIES</a>
                                 <ul class="dropdown-menu dropdown-menu-dark">
-                                    <li class="nav-item"><a class="dropdown-item" href="#">A</a></li>
-                                    <li class="nav-item"><a class="dropdown-item" href="#">B</a></li>
-                                    <li class="nav-item"><a class="dropdown-item" href="#">C</a></li>
+                                    @foreach ($navbar_category as $category)
+                                        <li class="nav-item"><a class="dropdown-item"
+                                                href="{{ route('category.show', $category) }}">{{ $category->name }}</a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </li>
                             <li class="nav-item">
@@ -107,17 +110,6 @@
             <div class="container inner py-8">
                 <div class="row gx-lg-8 gx-xl-12 gy-4 gy-lg-0">
                     <div class="col-lg-8 align-self-center">
-                        <div class="blog-filter filter">
-                            <p>Blog Filter:</p>
-                            <ul>
-                                <li><a class="active" href="#">Paper</a></li>
-                                <li><a href="#">Fabric</a></li>
-                                <li><a href="#">Fashion</a></li>
-                                <li><a href="#">Party</a></li>
-                                <li><a href="#">Printables</a></li>
-                            </ul>
-                        </div>
-                        <!--/.filter -->
                     </div>
                     <!--/column -->
                     <aside class="col-lg-4 sidebar">

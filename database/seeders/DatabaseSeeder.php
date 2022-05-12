@@ -33,17 +33,19 @@ class DatabaseSeeder extends Seeder
         Image::truncate();
 
         Schema::enableForeignKeyConstraints();
-
         Role::factory(1)->create();
-        Category::factory(4)->create();
+        Role::factory(1)->create(['name'=>'admin']);
         $user = User::factory(7)->create();
-        $post = Post::factory(1)->create();
-        Comment::factory(3)->create();
-        Tag::factory(2)->create();
-
+        $category = Category::factory(4)->create();
+        Tag::factory(4)->create();
+        $post = Post::factory(50)->create();
+        Comment::factory(150)->create();
 
         foreach ($user as $u) {
             $u->images()->save(Image::factory()->make());
+        }
+        foreach ($category as $cat) {
+            $cat->images()->save(Image::factory()->make());
         }
         foreach ($post as $p) {
             $tags_ids = [];
