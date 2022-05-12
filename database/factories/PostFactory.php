@@ -21,6 +21,7 @@ class PostFactory extends Factory
             'category_id' => Category::all()->random()->id,
             'slug' => $this->faker->unique()->slug(),
             'excerpt' => $this->faker->sentence(),
+            'public' => $this->faker->boolean(),
         ];
     }
 }

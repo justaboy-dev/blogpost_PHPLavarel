@@ -10,6 +10,7 @@ use App\Http\Controllers\TagController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\AdminPostController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -32,6 +33,8 @@ Route::get('/author/{author:name}',[AuthorController::class,'show'])->name('auth
 //admin
 Route::prefix('admin')->name('admin.')->middleware(['auth','isadmin'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin_dashboard.index');
+    Route::get('/post/create', [AdminPostController::class, 'create'])->name('admin_dashboard.post.create');
+    Route::post('/post/store', [AdminPostController::class, 'store'])->name('admin_dashboard.post.store');
 });
 
 

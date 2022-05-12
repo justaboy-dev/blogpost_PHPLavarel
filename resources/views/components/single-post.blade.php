@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="post-content">
-                    <p>{{ $post->excerpt }}</p>
+                    {{ $post->excerpt }}
                 </div>
             </div>
             <div class="pt-4">

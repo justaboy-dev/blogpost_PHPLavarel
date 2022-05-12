@@ -10,9 +10,9 @@ class PostController extends Controller
     public function show($post)
     {
         $post = Post::where('slug', $post)->firstOrFail();
-        $same_author_posts = Post::where('user_id', $post->user_id)->get();
+        $same_author_posts = Post::where('user_id', $post->user_id)->where('public',true)->get();
         if (count($same_author_posts) < 1) {
-            $same_author_posts = Post::all()->random(5);
+            $same_author_posts = Post::where('public',true)->random(5);
         }
         return view('post', [
             'post' => $post,

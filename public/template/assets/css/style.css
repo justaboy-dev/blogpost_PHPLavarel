@@ -22917,7 +22917,7 @@ blockquote.text-center.icon-top:before {
     color: #aab0bc;
 }
 
-.badge{
+.badge {
     padding: 0.4rem 0;
 }
 
@@ -37869,9 +37869,10 @@ footer.bg-dark.angled.upper-start:before {
 
 .global-alert {
     position: fixed;
-    bottom: 20px;
+    top: 20px;
     right: 10px;
     min-width: 500px;
+    max-width: 700px;
     border-radius: 50px;
     color: white;
     z-index: 2;
