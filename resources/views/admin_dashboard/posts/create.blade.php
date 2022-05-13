@@ -1,4 +1,5 @@
-@extends('admin_dashboard.layout.main') @section('tittle', 'Create Post')
+@extends('admin_dashboard.layout.main')
+@section('tittle', 'Create Post')
 @section('custom-css')
     <style>
         .custom_image_box {
@@ -19,14 +20,17 @@
     </style>
 @endsection
 @section('content')
-    <div class="alert alert-info global-success global-alert d-none"></div>
     <form onsubmit="return false;" method="post">
         @csrf
         <div class="row">
             <div class="col-md-8">
                 <div class="form-group mb-4">
                     <h4>Post tittle</h4>
-                    <input type="text" name="tittle" class="form-control" placeholder="Post tittle" required />
+                    <input type="text" name="tittle" id="tittle" class="form-control" placeholder="Post tittle" required />
+                </div>
+                <div class="form-group mb-4">
+                    <h4>Post slug</h4>
+                    <input type="text" id="slug" name="slug" class="form-control" placeholder="Post slug" required />
                 </div>
                 <div class="form-group mb-4">
                     <h4>Post content</h4>
@@ -120,11 +124,17 @@
                 }
             });
         });
+        $('#tittle').keyup(function() {
+            var title = $(this).val();
+            var slug = stringToSlug(title);
+            $('#slug').val(slug);
+        });
         $(document).on('click', '#save', (e) => {
             e.preventDefault;
             let $this = e.target;
             let csrf_token = $($this).parents('form').find('input[name="_token"]').val();
             let tittle = $($this).parents('form').find('input[name="tittle"]').val();
+            let slug = $($this).parents('form').find('input[name="slug"]').val();
             let body = CKEDITOR.instances['postcontent'].getData();
             let excerpt = CKEDITOR.instances['postexcerpt'].getData();
             let category_id = $($this).parents('form').find('select[name="category_id"]').val();
@@ -135,9 +145,19 @@
             })
             let public = $($this).parents('form').find('select[name="public"]').val();
 
+            if (post_thumb == '') {
+                alert('Please select image');
+                return false;
+            }
+            if (tags.length == 0) {
+                alert('Please select at least one tag');
+                return false;
+            }
+
             let formData = new FormData();
             formData.append('_token', csrf_token);
             formData.append('tittle', tittle);
+            formData.append('slug', slug);
             formData.append('body', body);
             formData.append('excerpt', excerpt);
             formData.append('category_id', category_id);
@@ -155,17 +175,34 @@
                     if (data.success) {
                         $('.global-alert').removeClass('d-none');
                         $($this).parents('form').trigger('reset');
+                        CKEDITOR.instances['postcontent'].setData('');
+                        CKEDITOR.instances['postexcerpt'].setData('');
+                        $('#postthumb').attr('src', "{{ asset('storage/images/upload.jpg') }}");
                     } else {
                         $('.global-alert').removeClass('d-none').removeClass('global-success').addClass(
                             'global-error');
                     }
                     $('.global-alert').text(data.message);
                     $('.global-alert').fadeIn();
-                    // setTimeout(() => {
-                    //     $('.global-alert').fadeOut();
-                    // }, 3000);
+                    setTimeout(() => {
+                        $('.global-alert').fadeOut();
+                    }, 3000);
                 }
             })
         });
+
+        function stringToSlug(str) {
+            var from = "àáãảạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệđùúủũụưừứửữựòóỏõọôồốổỗộơờớởỡợìíỉĩịäëïîöüûñçýỳỹỵỷ",
+                to = "aaaaaaaaaaaaaaaaaeeeeeeeeeeeduuuuuuuuuuuoooooooooooooooooiiiiiaeiiouuncyyyyy";
+            for (var i = 0, l = from.length; i < l; i++) {
+                str = str.replace(RegExp(from[i], "gi"), to[i]);
+            }
+            str = str.toLowerCase()
+                .trim()
+                .replace(/[^a-z0-9\-]/g, '-')
+                .replace(/-+/g, '-');
+
+            return str;
+        }
     </script>
 @endsection

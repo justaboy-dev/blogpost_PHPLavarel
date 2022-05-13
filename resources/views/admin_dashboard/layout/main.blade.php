@@ -8,12 +8,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>@yield('tittle')</title>
-    <link href="{{ asset('admin-template/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet"
-        type="text/css">
+    <link href="{{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-    <link href="{{ asset('admin-template/css/sb-admin-2.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
     @yield('custom-css')
 </head>
 
@@ -43,7 +42,7 @@
                 <div id="collapePost" class="collapse" aria-labelledby="headingPost"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">All Post</a>
+                        <a class="collapse-item" href="{{ route('admin.admin_dashboard.post.index') }}">All Post</a>
                         <a class="collapse-item" href="{{ route('admin.admin_dashboard.post.create') }}">Add Post</a>
                     </div>
                 </div>
@@ -88,6 +87,7 @@
         <div id="content-wrapper" class="d-flex flex-column">
             <div id="content">
                 <x-admin.header />
+                <div class="alert alert-info global-success global-alert d-none"></div>
                 <div class="container-fluid">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">@yield('tittle')</h1>
@@ -119,10 +119,10 @@
             </div>
         </div>
     </div>
-    <script src="{{ asset('admin-template/vendor/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('admin-template/vendor/bootstrap/js/bootstrap.bundle.js') }}"></script>
-    <script src="{{ asset('admin-template/vendor/jquery-easing/jquery.easing.js') }}"></script>
-    <script src="{{ asset('admin-template/js/sb-admin-2.js') }}"></script>
+    <script src="{{ asset('vendor/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.js') }}"></script>
+    <script src="{{ asset('vendor/jquery-easing/jquery.easing.js') }}"></script>
+    <script src="{{ asset('js/sb-admin-2.js') }}"></script>
     @yield('custom-js')
 </body>
 

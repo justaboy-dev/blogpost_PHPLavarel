@@ -27,7 +27,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Event::listen('post', 'App\Events\ViewPostHandle');
     }
 
     /**

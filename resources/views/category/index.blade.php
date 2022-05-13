@@ -14,7 +14,7 @@
                                 <div class="card">
                                     <figure class="card-img-top overlay overlay-1 hover-scale">
                                         <a href="{{ route('category.show', $category) }}">
-                                            <img src="{{ asset('storage/' . $category->images->path) . '' }}" alt="" />
+                                            <img src="{{ asset($category->images->path) . '' }}" alt="" />
                                         </a>
                                         <figcaption>
                                             <h5 class="from-top mb-0">Read More</h5>

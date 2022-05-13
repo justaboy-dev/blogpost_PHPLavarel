@@ -22,6 +22,12 @@
                             <li class="post-comments"><a href="#comments"><i
                                         class="uil uil-comment"></i>{{ count($post->comments) }}<span> Comments</span></a>
                             </li>
+                            <li class="post-comments">
+                                <i class="uil uil-eye"></i>
+                                <span>
+                                    {{ $post->views }} Views
+                                </span>
+                            </li>
                             </li>
                         </ul>
                     </div>
@@ -31,17 +37,18 @@
     </section>
     <section class="wrapper bg-light">
         <div class="container pb-14 pb-md-16">
-            <div class="row">
+            <div class="row" id="image">
                 <div class="col-lg-10 mx-auto">
                     <div class="blog single mt-n17">
                         <div class="card">
-                            <figure class="card-img-top"><img src="{{ asset('storage/' . $post->images->path) }}"
-                                    alt=""></figure>
+                            <figure class="card-img-top">
+                                <img src="{{ asset($post->images->path) }}" alt="">
+                            </figure>
                             <div class="card-body">
                                 <div class="classic-view">
                                     <article class="post">
                                         <div class="post-content mb-5">
-                                            {{ $post->body }}
+                                            {!! $post->body !!}
                                         </div>
 
                                         <div
@@ -49,7 +56,7 @@
                                             <div>
                                                 <ul class="list-unstyled tag-list mb-0">
                                                     @foreach ($post->tags as $tag)
-                                                        <li><a href="#"
+                                                        <li><a href="{{ route('tag.show', $tag) }}"
                                                                 class="btn btn-soft-ash btn-sm rounded-pill mb-0">{{ $tag->name }}</a>
                                                         </li>
                                                     @endforeach
@@ -83,8 +90,8 @@
                                 <hr>
                                 <div class="author-info d-md-flex align-items-center mb-3">
                                     <div class="d-flex align-items-center">
-                                        <figure class="user-avatar"><img class="rounded-circle" alt=""
-                                                src="{{ $post->author->images ? asset('storage/' . $post->author->images->path) : asset('storage/images/user.png') }}">
+                                        <figure class="user-avatar"><img class="rounded-circle-height-avatar" alt=""
+                                                src="{{ $post->author->images ? asset($post->author->images->path) : asset('storage/images/user.png') }}">
                                         </figure>
                                         <div>
                                             <h6><a href="#" class="link-dark">{{ $post->author->name }}</a></h6>
@@ -117,7 +124,7 @@
                                                     <article>
                                                         <figure class="overlay overlay-1 hover-scale rounded mb-5">
                                                             <a href="#">
-                                                                <img src="{{ asset('storage/' . $same_author_post->images->path) }}"
+                                                                <img src="{{ asset($same_author_post->images->path) }}"
                                                                     alt="">
                                                             </a>
                                                             <figcaption>
@@ -176,7 +183,7 @@
                                                     <div class="d-flex align-items-center">
                                                         <figure class="user-avatar "><img
                                                                 class="rounded-circle-height-avatar" alt=""
-                                                                src="{{ $comment->user->images ? asset('storage/' . $comment->user->images->path) : asset('storage/images/user.png') }}">
+                                                                src="{{ $comment->user->images ? asset($comment->user->images->path) : asset('storage/images/user.png') }}">
                                                         </figure>
                                                         <div>
                                                             <h6 class="comment-author"><a href="#"
@@ -226,4 +233,27 @@
             </div>
         </div>
     </section>
+@endsection
+
+@section('custom-js')
+    <script src="{{ asset('dist/viewer.js') }}"></script>
+    <script>
+        var viewer = new Viewer(document.getElementById('image'), {
+            title: false,
+            toolbar: false,
+            navbar: false,
+            loop: true,
+            fullscreen: false,
+            minZoomRatio: 0.5,
+            maxZoomRatio: 10,
+            zoomRatio: 1,
+            ready: function() {
+                viewer.zoomTo(1);
+            }
+        });
+    </script>
+@endsection
+
+@section('custom-css')
+    <link rel="stylesheet" href="{{ asset('dist/viewer.css') }}">
 @endsection

@@ -10,9 +10,8 @@
         content="bootstrap 5, business, corporate, creative, gulp, marketing, minimal, modern, multipurpose, one page, responsive, saas, sass, seo, startup, html5 template, site template">
     <meta name="author" content="elemis">
     <title>@yield('tittle')</title>
-    <link rel="shortcut icon" href="{{ asset('template/assets/img/favicon.png') }}">
-    <link rel="stylesheet" href="{{ asset('template/assets/css/plugins.css') }}">
-    <link rel="stylesheet" href="{{ asset('template/assets/css/style.css') }}">
+    <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
     @yield('custom-css')
 </head>
 
@@ -22,8 +21,7 @@
             <div class="container flex-lg-row flex-nowrap align-items-center">
                 <div class="navbar-brand w-100">
                     <a href="{{ route('home') }}">
-                        <img src="{{ asset('template/assets/img/logo.png') }}"
-                            srcset="{{ asset('template/assets/img/logo@2x.png 2x') }}" alt="">
+                        <img src="{{ asset('img/logo.png') }}" srcset="{{ asset('img/logo@2x.png 2x') }}" alt="">
                     </a>
                 </div>
                 <div class="navbar-collapse offcanvas offcanvas-nav offcanvas-start">
@@ -145,8 +143,8 @@
             <div class="row gy-6 gy-lg-0">
                 <div class="col-md-4 col-lg-3">
                     <div class="widget">
-                        <img class="mb-4" src="{{ asset('template/assets/img/logo-light.png') }}"
-                            srcset="{{ asset('template/assets/img/logo-light@2x.png 2x') }}" alt="" />
+                        <img class="mb-4" src="{{ asset('img/logo-light.png') }}"
+                            srcset="{{ asset('img/logo-light@2x.png 2x') }}" alt="" />
                         <p class="mb-4">© 2021 Sandbox. <br class="d-none d-lg-block" />All rights reserved.
                         </p>
                         <nav class="nav social social-white">
@@ -237,11 +235,8 @@
             <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
         </svg>
     </div>
-    <script src="{{ asset('template/assets/js/plugins.js') }}"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-    <script src="{{ asset('template/assets/js/theme.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ asset('js/theme.js') }}"></script>
     @yield('custom-js')
 </body>
 

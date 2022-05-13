@@ -258,7 +258,7 @@
                 <div class="card-body">
                     <div class="text-center">
                         <img class="img-fluid px-3 px-sm-4 mt-3 mb-4" style="width: 25rem;"
-                            src="{{ asset('admin-template/img/undraw_posting_photo.svg') }}" alt="...">
+                            src="{{ asset('img/undraw_posting_photo.svg') }}" alt="...">
                     </div>
                     <p>Add some quality, svg illustrations to your project courtesy of <a target="_blank" rel="nofollow"
                             href="https://undraw.co/">unDraw</a>, a
@@ -286,7 +286,7 @@
 @endsection
 
 @section('custom-js')
-    <script src="{{ asset('admin-template/vendor/chart.js/Chart.js') }}"></script>
-    <script src="{{ asset('admin-template/js/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('admin-template/js/demo/chart-pie-demo.js') }}"></script>
+    <script src="{{ asset('vendor/chart.js/Chart.js') }}"></script>
+    <script src="{{ asset('js/demo/chart-area-demo.js') }}"></script>
+    <script src="{{ asset('js/demo/chart-pie-demo.js') }}"></script>
 @endsection

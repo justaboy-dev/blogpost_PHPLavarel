@@ -35,7 +35,7 @@ class ImageFactory extends Factory
         ];
         return [
             'name' => $this->faker->word(),
-            'path' => 'images/'.$this->faker->randomElement($image),
+            'path' => 'storage/images/'.$this->faker->randomElement($image),
             'extension' => 'jpg',
         ];
     }

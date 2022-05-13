@@ -24,6 +24,7 @@ return new class extends Migration
             $table->unSignedBigInteger('category_id');
             $table->foreign('category_id')->references('id')->on('categories');
             $table->boolean('public')->default(true);
+            $table->unSignedBigInteger('views')->default(0);
             $table->timestamps();
         });
     }

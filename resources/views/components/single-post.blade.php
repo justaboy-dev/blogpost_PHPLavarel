@@ -3,9 +3,10 @@
     <div class="row">
         <div class="col-sm-5">
             <div class="card">
-                <figure class="card-img-top overlay overlay-1 hover-scale"><a
-                        href="{{ route('posts.show', $post) }}"><img
-                            src="{{ asset('storage/' . $post->images->path) . '' }}" alt="" /></a>
+                <figure class="card-img-top overlay overlay-1 hover-scale">
+                    <a href="{{ route('posts.show', $post) }}">
+                        <img src="{{ asset($post->images->path) }}" alt="" />
+                    </a>
                     <figcaption>
                         <h5 class="from-top mb-0">Read More</h5>
                     </figcaption>
@@ -27,17 +28,23 @@
                     </div>
                 </div>
                 <div class="post-content">
-                    {{ $post->excerpt }}
+                    {!! $post->excerpt !!}
                 </div>
             </div>
             <div class="pt-4">
+                <ul class="post-meta d-flex mb-3">
+                    <li class="post-author">
+                        <i class="uil uil-eye"></i>
+                        <span>{{ $post->views }} Views</span>
+                    </li>
+                </ul>
                 <ul class="post-meta d-flex mb-3">
                     <li class="post-author">
                         <a href="{{ route('author.show', $post->author) }}"><i class="uil uil-user"></i><span>By
                                 {{ $post->author->name }}</span></a>
                     </li>
                 </ul>
-                <ul class="post-meta d-flex mb-0">
+                <ul class="post-meta d-flex mb-3">
 
                     <li class="post-date">
                         <i class="uil uil-calendar-alt"></i>

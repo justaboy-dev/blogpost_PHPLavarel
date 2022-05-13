@@ -17,7 +17,7 @@ class CategoryController extends Controller
     }
     public function show(Category $category)
     {
-        $popular_post = Post::where('public',true)->withCount('comments') ->orderBy('comments_count', 'desc')->take(5)->get();
+        $popular_post = Post::where('public',true)->orderBy('views', 'desc')->take(5)->get();
         $categories = Category::withCount('posts')->orderBy('posts_count','DESC')->take(10)->get();
         $tags = Tag::withCount('posts')->get();
         return view('category.show',[

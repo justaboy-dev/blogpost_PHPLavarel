@@ -14,8 +14,12 @@ use App\Http\Controllers\Admin\AdminPostController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/posts/{post:slug}', [PostController::class,'show'])->name('posts.show');
+Route::middleware('post_views')->group(function(){
+    Route::get('/posts/{post:slug}', [PostController::class,'show'])->name('posts.show');
+});
+
 Route::post('/post/{post:slug}', [PostController::class,'add_comment'])->name('posts.add_comment');
+
 Route::get('/about', AboutController::class)->name('about');
 
 
@@ -34,6 +38,7 @@ Route::get('/author/{author:name}',[AuthorController::class,'show'])->name('auth
 Route::prefix('admin')->name('admin.')->middleware(['auth','isadmin'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin_dashboard.index');
     Route::get('/post/create', [AdminPostController::class, 'create'])->name('admin_dashboard.post.create');
+    Route::get('/post', [AdminPostController::class, 'index'])->name('admin_dashboard.post.index');
     Route::post('/post/store', [AdminPostController::class, 'store'])->name('admin_dashboard.post.store');
 });
 

@@ -6,13 +6,23 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Tag;
+use App\Models\Post;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Image;
+
 
 class AdminPostController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-
+        $per_page = $request->has('per_page') ? $request->get('per_page') : 10;
+        $posts = Post::when($request->has("tittle"),function($q)use($request){
+            return $q->where("tittle","like","%".$request->get("tittle")."%");
+        })->get();
+        if($request->ajax()) {
+            return view('admin_dashboard.posts.paginate', compact('posts'))->render();
+        }
+        return view('admin_dashboard.posts.index', compact('posts'));
     }
     public function create()
     {
@@ -33,6 +43,7 @@ class AdminPostController extends Controller
             'body' => 'required|min:3',
             'excerpt' =>'required',
             'category_id' => 'required',
+            'slug' => 'required|unique:posts',
             'tags' => 'required',
             'public' => 'required',
             'post_thumb' => 'required',
@@ -49,8 +60,15 @@ class AdminPostController extends Controller
             $data['message'] = 'Please check the form again';
         } else {
             $attribute = $validate->validated();
+            $attribute['user_id'] = auth()->user()->id;
+            // dd($attribute);
             $data['success'] = 1;
-            $data['message'] = 'Thank you for contacting us. We will get back to you as soon as possible.';
+            $data['message'] = 'Create post successfully';
+            $post = Post::create($attribute);
+            $post->tags()->sync(explode(',',$attribute['tags']));
+            $image = Image::where('path',substr($attribute['post_thumb'],1))->first();
+            $post->images()->save($image);
+            $post->save();
         }
         return response()->json($data);
     }

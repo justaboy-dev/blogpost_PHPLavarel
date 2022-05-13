@@ -22,6 +22,7 @@ class PostFactory extends Factory
             'slug' => $this->faker->unique()->slug(),
             'excerpt' => $this->faker->sentence(),
             'public' => $this->faker->boolean(),
+            'views' => $this->faker->numberBetween(0, 100),
         ];
     }
 }

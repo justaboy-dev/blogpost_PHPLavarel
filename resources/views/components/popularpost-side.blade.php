@@ -4,8 +4,8 @@
     <ul class="image-list">
         @foreach ($popular_post as $p_post)
             <li>
-                <figure class="rounded"><a href=""><img
-                            src="{{ asset('storage/' . $p_post->images->path) . '' }}" alt="" /></a>
+                <figure class="rounded"><a href=""><img src="{{ asset($p_post->images->path) . '' }}"
+                            alt="" /></a>
                 </figure>
                 <div class="post-content">
                     <h6 class="mb-2">
@@ -19,8 +19,8 @@
                                 <span>{{ $p_post->created_at->diffForHumans() }}</span>
                             </li>
                             <li class="post-comments">
-                                <a href="{{ route('posts.show', $p_post) }}#comments"><i
-                                        class="uil uil-comment"></i>{{ count($p_post->comments) }}</a>
+                                <i class="uil uil-eye"></i>
+                                <span>{{ $p_post->views }} Views</span>
                             </li>
                         </ul>
                     </div>
