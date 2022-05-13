@@ -4,25 +4,56 @@
 @section('tittle', 'Posts')
 
 @section('custom-css')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.0/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}">
 @endsection
 
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
-                <div id="dataTable_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <div id="pagination_data">
-                                @include('admin_dashboard.posts.paginate', [
-                                    'posts' => $posts,
-                                ])
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                @include('admin_dashboard.posts.paginate', [
+                    'posts' => $posts,
+                ])
             </div>
         </div>
     </div>
 @endsection
+
+@section('custom-js')
+    <script src="{{ asset('vendor/datatables/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendor/datatables/dataTables.bootstrap4.js') }}"></script>
+    <script>
+        $('#dataTable').DataTable({
+            "columnDefs": [{
+                    "orderable": false,
+                    "targets": [5]
+                },
+                {
+                    "orderable": true,
+                    "targets": [0, 1, 2, 3, 4]
+                }
+            ],
+            pageLength: 20,
+            lengthMenu: [20, 50, 100, 200, 500],
+        });
+
+        function deletePost(id) {
+            swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this post!",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        swal("This post file has been deleted!", {
+                            icon: "success",
+                        });
+                    }
+                });
+            return false;
+        }
+    </script>
+@endsection
+'

@@ -37,9 +37,11 @@ Route::get('/author/{author:name}',[AuthorController::class,'show'])->name('auth
 //admin
 Route::prefix('admin')->name('admin.')->middleware(['auth','isadmin'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('admin_dashboard.index');
-    Route::get('/post/create', [AdminPostController::class, 'create'])->name('admin_dashboard.post.create');
     Route::get('/post', [AdminPostController::class, 'index'])->name('admin_dashboard.post.index');
+    Route::get('/post/create', [AdminPostController::class, 'create'])->name('admin_dashboard.post.create');
     Route::post('/post/store', [AdminPostController::class, 'store'])->name('admin_dashboard.post.store');
+    Route::get('/post/edit/{post:slug}', [AdminPostController::class, 'edit'])->name('admin_dashboard.post.edit');
+    Route::post('/post/update/{post:id}', [AdminPostController::class, 'update'])->name('admin_dashboard.post.update');
 });
 
 

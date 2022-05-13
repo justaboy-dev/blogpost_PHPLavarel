@@ -12,8 +12,8 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-    <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
     @yield('custom-css')
+    <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -123,6 +123,7 @@
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.js') }}"></script>
     <script src="{{ asset('vendor/jquery-easing/jquery.easing.js') }}"></script>
     <script src="{{ asset('js/sb-admin-2.js') }}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @yield('custom-js')
 </body>
 
