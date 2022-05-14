@@ -14,6 +14,7 @@
         rel="stylesheet">
     @yield('custom-css')
     <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.style.css') }}" rel="stylesheet">
 </head>
 
 <body id="page-top">
@@ -57,8 +58,10 @@
                 <div id="collapseCategory" class="collapse" aria-labelledby="headingCategory"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">All Category</a>
-                        <a class="collapse-item" href="cards.html">Add Category</a>
+                        <a class="collapse-item" href="{{ route('admin.admin_dashboard.category.index') }}">All
+                            Category</a>
+                        <a class="collapse-item" href="{{ route('admin.admin_dashboard.category.create') }}">Add
+                            Category</a>
                     </div>
                 </div>
             </li>
@@ -93,6 +96,18 @@
                         <h1 class="h3 mb-0 text-gray-800">@yield('tittle')</h1>
                     </div>
                     @yield('content')
+                </div>
+            </div>
+            <div class="container p-4">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="copyright text-center p-3">
+                                Copyright &copy; 2022, made with <i class="fas fa-heart"></i> by <a
+                                    href="https://github.com/jusaboy-dev" target="_blank">Just A Boy</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

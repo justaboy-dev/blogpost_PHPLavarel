@@ -9,6 +9,7 @@ use App\Models\Tag;
 use App\Models\Post;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Image;
+use DB;
 
 
 class AdminPostController extends Controller
@@ -35,6 +36,7 @@ class AdminPostController extends Controller
     }
     public function store(Request $request)
     {
+        DB::beginTransaction();
         $data = array();
         $data['error'] = [];
         $data['success'] = 0;
@@ -50,14 +52,15 @@ class AdminPostController extends Controller
         ];
         $validate = Validator::make(request()->all(), $rules);
         if ($validate->fails()) {
-            $data['error']['tittle'] = $validate->errors()->first('tittle');
-            $data['error']['body'] = $validate->errors()->first('body');
-            $data['error']['excerpt'] = $validate->errors()->first('excerpt');
-            $data['error']['category_id'] = $validate->errors()->first('category_id');
-            $data['error']['tags'] = $validate->errors()->first('tags');
-            $data['error']['public'] = $validate->errors()->first('public');
-            $data['error']['post_thumb'] = $validate->errors()->first('post_thumb');
+            $data['error'][] = $validate->errors()->first('tittle');
+            $data['error'][] = $validate->errors()->first('body');
+            $data['error'][] = $validate->errors()->first('excerpt');
+            $data['error'][] = $validate->errors()->first('category_id');
+            $data['error'][] = $validate->errors()->first('tags');
+            $data['error'][] = $validate->errors()->first('public');
+            $data['error'][] = $validate->errors()->first('post_thumb');
             $data['message'] = 'Please check the form again';
+            DB::rollback();
         } else {
             $attribute = $validate->validated();
             $attribute['user_id'] = auth()->user()->id;
@@ -66,9 +69,14 @@ class AdminPostController extends Controller
             $data['message'] = 'Create post successfully';
             $post = Post::create($attribute);
             $post->tags()->sync(explode(',',$attribute['tags']));
-            $image = Image::where('path',substr($attribute['post_thumb'],1))->first();
+            if($attribute['post_thumb'][0] == '/'){
+                $image = Image::where('path',substr($attribute['post_thumb'],1))->first();
+            }else{
+                $image = Image::where('path',$attribute['post_thumb'])->first();
+            }
             $post->images()->save($image);
             $post->save();
+            DB::commit();
         }
         return response()->json($data);
     }
@@ -84,6 +92,7 @@ class AdminPostController extends Controller
     }
     public function update(Post $post)
     {
+        DB::beginTransaction();
         $data = array();
         $data['error'] = [];
         $data['success'] = 0;
@@ -100,25 +109,22 @@ class AdminPostController extends Controller
         // dd(request()->all());
         $validate = Validator::make(request()->all(), $rules);
         if ($validate->fails()) {
-            $data['error']['tittle'] = $validate->errors()->first('tittle');
-            $data['error']['body'] = $validate->errors()->first('body');
-            $data['error']['excerpt'] = $validate->errors()->first('excerpt');
-            $data['error']['category_id'] = $validate->errors()->first('category_id');
-            $data['error']['tags'] = $validate->errors()->first('tags');
-            $data['error']['public'] = $validate->errors()->first('public');
-            $data['error']['post_thumb'] = $validate->errors()->first('post_thumb');
+            $data['error'][] = $validate->errors()->first('tittle');
+            $data['error'][] = $validate->errors()->first('body');
+            $data['error'][]= $validate->errors()->first('excerpt');
+            $data['error'][] = $validate->errors()->first('category_id');
+            $data['error'][] = $validate->errors()->first('tags');
+            $data['error'][] = $validate->errors()->first('public');
+            $data['error'][] = $validate->errors()->first('post_thumb');
             $data['message'] = 'Please check the form again';
+            DB::rollback();
         } else {
             $attribute = $validate->validated();
             $attribute['user_id'] = auth()->user()->id;
             // dd($attribute);
             $data['success'] = 1;
             $data['message'] = 'Update post successfully';
-            $post->tittle = $attribute['tittle'];
-            $post->body = $attribute['body'];
-            $post->excerpt = $attribute['excerpt'];
-            $post->category_id = $attribute['category_id'];
-            $post->slug = $attribute['slug'];
+            $post->update($attribute);
             $post->public = $attribute['public'];
             $post->tags()->sync(explode(',',$attribute['tags']));
             if($attribute['post_thumb'][0] == '/'){
@@ -128,11 +134,26 @@ class AdminPostController extends Controller
             }
             $post->images()->save($image);
             $post->save();
+            DB::commit();
         }
         return response()->json($data);
     }
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        //
+        DB::beginTransaction();
+        $data = array();
+        $post = Post::find($id)->delete();
+        if ($post) {
+            $data['message'] = 'Delete post successfully';
+            $data['success'] = 1;
+            DB::commit();
+        }
+        else
+        {
+            $data['message'] = 'Delete post failed';
+            $data['success'] = 0;
+            DB::rollback();
+        }
+        return response()->json($data);
     }
 }

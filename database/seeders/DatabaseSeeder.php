@@ -36,6 +36,17 @@ class DatabaseSeeder extends Seeder
         Role::factory(1)->create();
         Role::factory(1)->create(['name'=>'admin']);
         $user = User::factory(7)->create();
+        $default_cat = Category::factory()->create([
+            'name' => 'Uncategorized',
+            'slug' => 'uncategorized',
+        ]);
+        $default_cat->images()->save(Image::create([
+            'path' => 'storage/images/uncategoried.png',
+            'extension' => 'png',
+            'name' => 'default_category',
+            'imageable_id' => $default_cat->id,
+            'imageable_type' => Category::class,
+        ]));
         $category = Category::factory(4)->create();
         Tag::factory(4)->create();
         $post = Post::factory(50)->create();

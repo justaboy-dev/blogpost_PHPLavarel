@@ -236,7 +236,7 @@
 @endsection
 
 @section('custom-js')
-    <script src="{{ asset('dist/viewer.js') }}"></script>
+    <script src="{{ asset('vendor/viewjs/viewer.js') }}"></script>
     <script>
         var viewer = new Viewer(document.getElementById('image'), {
             title: false,
@@ -255,5 +255,5 @@
 @endsection
 
 @section('custom-css')
-    <link rel="stylesheet" href="{{ asset('dist/viewer.css') }}">
+    <link rel="stylesheet" href="{{ asset('vendor/viewjs/viewer.css') }}">
 @endsection

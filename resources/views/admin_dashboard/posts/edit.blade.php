@@ -1,25 +1,5 @@
 @extends('admin_dashboard.layout.main')
 @section('tittle', 'Edit Post')
-@section('custom-css')
-    <style>
-        .custom_image_box {
-            width: 100%;
-            height: 250px;
-            margin: 0.3rem;
-            padding: 0.3rem;
-            border-radius: 5px;
-            border: 1px dashed rgb(0, 0, 0);
-        }
-
-        .custom_image_box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-    </style>
-@endsection
-
 @section('content')
     <form onsubmit="return false;" method="post">
         @csrf
@@ -88,7 +68,7 @@
                     </select>
                 </div>
                 <div class="form-group mb-4">
-                    <input type="submit" id="update" class="btn btn-success btn-lg btn-block" value="Update">
+                    <input type="submit" id="postUpdate" class="btn btn-success btn-lg btn-block" value="Update">
                 </div>
             </div>
         </div>
@@ -96,8 +76,8 @@
 @endsection
 
 @section('custom-js')
-    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script src="{{ asset('ckfinder/ckfinder.js') }}"></script>
+    <script src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('vendor/ckfinder/ckfinder.js') }}"></script>
     <script>
         CKEDITOR.replace('postcontent', {
             filebrowserBrowseUrl: "{{ asset('ckfinder/ckfinder.html') }}",
@@ -138,7 +118,7 @@
             var slug = stringToSlug(title);
             $('#slug').val(slug);
         });
-        $(document).on('click', '#update', (e) => {
+        $(document).on('click', '#postUpdate', (e) => {
             e.preventDefault;
             let $this = e.target;
             let csrf_token = $($this).parents('form').find('input[name="_token"]').val();
@@ -182,21 +162,28 @@
                 dataType: 'JSON',
                 success: function(data) {
                     if (data.success) {
-                        $('.global-alert').removeClass('d-none');
+                        swal({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: data.message,
+                            button: false,
+                            timer: 1500
+                        }).then(function() {
+                            window.location.href =
+                                "{{ route('admin.admin_dashboard.post.index') }}";
+                        });
                     } else {
-                        $('.global-alert').removeClass('d-none').removeClass('global-success').addClass(
-                            'global-error');
+                        swal({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: data.message,
+                            text: data.error.join('\n'),
+                            button: true,
+                        })
                     }
-                    $('.global-alert').text(data.message);
-                    $('.global-alert').fadeIn();
-                    setTimeout(() => {
-                        $('.global-alert').fadeOut();
-                    }, 3000);
                 }
             })
         });
-
-
 
         function stringToSlug(str) {
             var from = "àáãảạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệđùúủũụưừứửữựòóỏõọôồốổỗộơờớởỡợìíỉĩịäëïîöüûñçýỳỹỵỷ",

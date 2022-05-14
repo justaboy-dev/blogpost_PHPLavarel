@@ -1,23 +1,4 @@
 @extends('admin_dashboard.layout.main') @section('tittle', 'Create Post')
-@section('custom-css')
-    <style>
-        .custom_image_box {
-            width: 100%;
-            height: 250px;
-            margin: 0.3rem;
-            padding: 0.3rem;
-            border-radius: 5px;
-            border: 1px dashed rgb(0, 0, 0);
-        }
-
-        .custom_image_box img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-    </style>
-@endsection
 @section('content')
     <div class="alert alert-info global-success global-alert d-none"></div>
     <form onsubmit="return false;" method="post">
@@ -26,7 +7,11 @@
             <div class="col-md-8">
                 <div class="form-group mb-4">
                     <h4>Post tittle</h4>
-                    <input type="text" name="tittle" class="form-control" placeholder="Post tittle" required />
+                    <input type="text" id="tittle" name="tittle" class="form-control" placeholder="Post tittle" required />
+                </div>
+                <div class="form-group mb-4">
+                    <h4>Post slug</h4>
+                    <input type="text" id="slug" name="slug" class="form-control" placeholder="Post slug" required />
                 </div>
                 <div class="form-group mb-4">
                     <h4>Post content</h4>
@@ -51,11 +36,10 @@
                 </div>
                 <div class="form-group mb-4">
                     <h4>Post thumbnail</h4>
-                    <div class="custom_image_box">
+                    <div class="custom_image_box" id="upload" role="button">
                         <img id="postthumb" src="{{ asset('storage/images/upload.jpg') }}" alt="">
                         <input type="text" id="postthumbnail" name="post_thumb" hidden required>
                     </div>
-                    <input id="upload" name="" class="btn btn-success btn-lg btn-block" value="Choose">
                 </div>
                 <div class="form-group mb-4">
                     <h4>Post tags</h4>
@@ -77,7 +61,7 @@
                     </select>
                 </div>
                 <div class="form-group mb-4">
-                    <input type="submit" id="save" class="btn btn-success btn-lg btn-block" value="Save">
+                    <input type="submit" id="postSave" class="btn btn-success btn-lg btn-block" value="Save">
                 </div>
             </div>
         </div>
@@ -85,8 +69,8 @@
 @endsection
 
 @section('custom-js')
-    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
-    <script src="{{ asset('ckfinder/ckfinder.js') }}"></script>
+    <script src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
+    <script src="{{ asset('vendor/ckfinder/ckfinder.js') }}"></script>
     <script>
         CKEDITOR.replace('postcontent', {
             filebrowserBrowseUrl: "{{ asset('ckfinder/ckfinder.html') }}",
@@ -120,11 +104,12 @@
                 }
             });
         });
-        $(document).on('click', '#save', (e) => {
+        $(document).on('click', '#postSave', (e) => {
             e.preventDefault;
             let $this = e.target;
             let csrf_token = $($this).parents('form').find('input[name="_token"]').val();
             let tittle = $($this).parents('form').find('input[name="tittle"]').val();
+            let slug = $($this).parents('form').find('input[name="slug"]').val();
             let body = CKEDITOR.instances['postcontent'].getData();
             let excerpt = CKEDITOR.instances['postexcerpt'].getData();
             let category_id = $($this).parents('form').find('select[name="category_id"]').val();
@@ -138,6 +123,7 @@
             let formData = new FormData();
             formData.append('_token', csrf_token);
             formData.append('tittle', tittle);
+            formData.append('slug', slug);
             formData.append('body', body);
             formData.append('excerpt', excerpt);
             formData.append('category_id', category_id);
@@ -152,6 +138,7 @@
                 data: formData,
                 dataType: 'JSON',
                 success: function(data) {
+                    console.log(data);
                     if (data.success) {
                         swal({
                             position: 'top-end',
@@ -160,17 +147,40 @@
                             button: false,
                             timer: 1500
                         })
+                        $($this).parents('form').trigger('reset');
+                        CKEDITOR.instances['postcontent'].setData('');
+                        CKEDITOR.instances['postexcerpt'].setData('');
+                        $('#postthumb').attr('src', "{{ asset('storage/images/upload.jpg') }}");
+                        $('#postthumbnail').val('');
                     } else {
                         swal({
                             position: 'top-end',
                             icon: 'error',
                             title: data.message,
-                            button: false,
-                            timer: 1500
+                            text: data.error.join('\n'),
+                            button: true,
                         })
                     }
                 }
             })
         });
+        $('#tittle').keyup(function() {
+            var title = $(this).val();
+            var slug = stringToSlug(title);
+            $('#slug').val(slug);
+        });
+
+        function stringToSlug(str) {
+            var from = "àáãảạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệđùúủũụưừứửữựòóỏõọôồốổỗộơờớởỡợìíỉĩịäëïîöüûñçýỳỹỵỷ",
+                to = "aaaaaaaaaaaaaaaaaeeeeeeeeeeeduuuuuuuuuuuoooooooooooooooooiiiiiaeiiouuncyyyyy";
+            for (var i = 0, l = from.length; i < l; i++) {
+                str = str.replace(RegExp(from[i], "gi"), to[i]);
+            }
+            str = str.toLowerCase()
+                .trim()
+                .replace(/[^a-z0-9\-]/g, '-')
+                .replace(/-+/g, '-');
+            return str;
+        }
     </script>
 @endsection

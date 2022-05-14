@@ -185,17 +185,23 @@
                 success: function(data) {
                     console.log(data);
                     if (data.success) {
-                        $('.global-alert').removeClass('d-none');
+                        swal({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: data.message,
+                            button: false,
+                            timer: 1500
+                        });
                         $($this).parents('form').trigger('reset');
                     } else {
-                        $('.global-alert').removeClass('d-none').removeClass('global-success').addClass(
-                            'global-error');
+                        swal({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: data.message,
+                            button: false,
+                            timer: 1500
+                        })
                     }
-                    $('.global-alert').text(data.message);
-                    $('.global-alert').fadeIn();
-                    setTimeout(() => {
-                        $('.global-alert').fadeOut();
-                    }, 3000);
                 }
             })
         })

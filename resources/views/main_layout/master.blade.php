@@ -235,7 +235,17 @@
             <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
         </svg>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('vendor/headhesive.min.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('vendor/svg-inject.min.js') }}"></script>
+    <script src="{{ asset('vendor/scrollCue.min.js') }}"></script>
+    <script src="{{ asset('vendor/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('vendor/glightbox.js') }}"></script>
+    <script src="{{ asset('vendor/plyr.js') }}"></script>
+    <script src="{{ asset('vendor/counterup.min.js') }}"></script>
+    <script src="{{ asset('vendor/noframework.waypoints.min.js') }}"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{ asset('js/theme.js') }}"></script>
     @yield('custom-js')
 </body>
