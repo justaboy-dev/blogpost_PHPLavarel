@@ -64,7 +64,7 @@
             formData.append('slug', slug);
             formData.append('category_thumb', category_thumb);
             $.ajax({
-                url: "{{ route('admin.admin_dashboard.category.store') }}",
+                url: "{{ route('admin.category.store') }}",
                 type: 'POST',
                 contentType: false,
                 processData: false,

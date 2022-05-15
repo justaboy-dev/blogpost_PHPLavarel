@@ -6,11 +6,11 @@
             <div class="row">
                 <div class="col-md-10 col-xl-8 mx-auto">
                     <div class="post-header">
+                        <h1 class="display-1 mb-4">{{ $post->tittle }}</h1>
                         <div class="post-category">
                             <a href="{{ route('category.show', $post->categories) }}" class="hover"
                                 rel="category">{{ $post->categories->name }}</a>
                         </div>
-                        <h1 class="display-1 mb-4">{{ $post->tittle }}</h1>
                         <ul class="post-meta mb-5">
                             <li class="post-date"><i
                                     class="uil uil-calendar-alt"></i><span>{{ $post->created_at->diffForHumans() }}</span>

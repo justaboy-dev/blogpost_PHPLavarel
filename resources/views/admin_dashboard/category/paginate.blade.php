@@ -19,7 +19,7 @@
                 <td>{{ $category->created_at->diffForHumans() }}</td>
                 <td>
                     <div class="d-flex flex-row justify-content-center">
-                        <a href="{{ route('admin.admin_dashboard.category.edit', $category) }}"><input type="button"
+                        <a href="{{ route('admin.category.edit', $category) }}"><input type="button"
                                 class="btn btn-primary mr-1" value="Edit"></a>
                         <input type="button" class="btn btn-danger mr-1"
                             onclick="deleteCategory({{ $category->id }},'{{ csrf_token() }}')" value="Delete">

@@ -1,12 +1,8 @@
 @extends('admin_dashboard.layout.main')
-
-
 @section('tittle', 'Posts')
-
 @section('custom-css')
     <link rel="stylesheet" href="{{ asset('vendor/datatables/dataTables.bootstrap4.min.css') }}">
 @endsection
-
 @section('content')
     <div class="card shadow mb-4">
         <div class="card-body">
@@ -47,7 +43,7 @@
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        var url = "{{ route('admin.admin_dashboard.post.destroy', ':id') }}";
+                        var url = "{{ route('admin.post.destroy', ':id') }}";
                         url = url.replace(':id', id);
                         $.ajax({
                             url: url.toString(),
@@ -68,4 +64,3 @@
         };
     </script>
 @endsection
-'

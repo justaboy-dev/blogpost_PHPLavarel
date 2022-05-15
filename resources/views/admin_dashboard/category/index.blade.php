@@ -47,7 +47,7 @@
                 })
                 .then((willDelete) => {
                     if (willDelete) {
-                        var url = "{{ route('admin.admin_dashboard.category.destroy', ':id') }}";
+                        var url = "{{ route('admin.category.destroy', ':id') }}";
                         url = url.replace(':id', id);
                         $.ajax({
                             url: url.toString(),

@@ -29,7 +29,7 @@
                 </td>
                 <td>
                     <div class="d-flex flex-row justify-content-center">
-                        <a href="{{ route('admin.admin_dashboard.post.edit', $post) }}"><input type="button"
+                        <a href="{{ route('admin.post.edit', $post) }}"><input type="button"
                                 class="btn btn-primary mr-1" value="Edit"></a>
                         <input type="button" class="btn btn-danger mr-1"
                             onclick="deletePost({{ $post->id }},'{{ csrf_token() }}')" value="Delete">

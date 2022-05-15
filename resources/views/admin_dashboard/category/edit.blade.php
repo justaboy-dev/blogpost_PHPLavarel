@@ -66,7 +66,7 @@
             formData.append('slug', slug);
             formData.append('category_thumb', category_thumb);
             $.ajax({
-                url: "{{ route('admin.admin_dashboard.category.update', $category) }}",
+                url: "{{ route('admin.category.update', $category) }}",
                 type: 'POST',
                 contentType: false,
                 processData: false,
@@ -83,7 +83,7 @@
                         }).then(
                             function() {
                                 window.location.href =
-                                    "{{ route('admin.admin_dashboard.category.index') }}";
+                                    "{{ route('admin.category.index') }}";
                             },
                         );
                     } else {

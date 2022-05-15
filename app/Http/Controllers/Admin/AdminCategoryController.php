@@ -48,8 +48,18 @@ class AdminCategoryController extends Controller
             $attribute = $validate->validated();
             $attribute['user_id'] = auth()->user()->id;
             $category = Category::create($attribute);
-            $image = Image::where('path',substr($attribute['category_thumb'],1))->first();
-            $category->images()->save($image);
+
+            $img = explode('/',$attribute['category_thumb']);
+
+            $data =
+
+            $category->images()->save(Image::create([
+                'imageable_id' => $category->id,
+                'name' => explode('.',$img[count($img)-1])[0],
+                'extension' => explode('.',end($img))[1],
+                'path' => $attribute['category_thumb'],
+                'imageable_type' => Category::class,
+            ]));
             $category->save();
             $data['success'] = 1;
             $data['message'] = 'Create category successfully';
@@ -63,6 +73,7 @@ class AdminCategoryController extends Controller
     }
     public function edit(Category $category)
     {
+        // dd($category->images);
         return view('admin_dashboard.category.edit', compact('category'));
     }
     public function update(Request $request,Category $category)
@@ -87,11 +98,18 @@ class AdminCategoryController extends Controller
             $attribute = $validate->validated();
             $attribute['user_id'] = auth()->user()->id;
             $category->update($attribute);
+
             if($attribute['category_thumb'][0] == '/'){
-                $image = Image::where('path',substr($attribute['category_thumb'],1))->first();
-            }else{
-                $image = Image::where('path',$attribute['category_thumb'])->first();
+                $attribute['category_thumb'] = substr($attribute['category_thumb'],1);
             }
+            $image = Image::where('imageable_id',$category->id)->first();
+            $img = explode('/',$attribute['category_thumb']);
+            $image->update([
+                'name' => explode('.',$img[count($img)-1])[0],
+                'extension' => explode('.',end($img))[1],
+                'path' => $attribute['category_thumb'],
+            ]);
+
             $category->images()->save($image);
             $category->save();
             $data['success'] = 1;

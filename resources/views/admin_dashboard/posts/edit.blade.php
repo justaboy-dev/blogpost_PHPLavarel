@@ -40,29 +40,20 @@
                 </div>
                 <div class="form-group mb-4">
                     <h4>Post thumbnail</h4>
-                    <div class="custom_image_box">
+                    <div class="custom_image_box" id="upload" role="button">
                         <img id="postthumb" src="{{ asset($post->images->path) }}" alt="">
                         <input type="text" id="postthumbnail" name="post_thumb" value="{{ $post->images->path }}" hidden
                             required>
                     </div>
-                    <input id="upload" name="" class="btn btn-success btn-lg btn-block" value="Choose">
                 </div>
                 <div class="form-group mb-4">
                     <h4>Post tags</h4>
-                    @foreach ($tags as $tag)
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="{{ $tag->id }}" name="tags"
-                                {{ in_array($tag->id, $post->tags->pluck('id')->toArray()) ? 'checked' : '' }}
-                                id="tags[{{ $tag->id }}]">
-                            <label class="form-check-label" for="tags[{{ $tag->id }}]">
-                                {{ $tag->name }}
-                            </label>
-                        </div>
-                    @endforeach
+                    <input type="text" class="form-control" id="tags"
+                        value="{{ join(',', $post->tags->pluck('name')->toArray()) }}" name="tags" required />
                 </div>
                 <div class="form-group mb-4">
                     <h4>Post status</h4>
-                    <select class="form-control" id="poststatus" value="1" required name="public">
+                    <select class="form-control" id="poststatus" required name="public">
                         <option {{ $post->public === 1 ? 'selected' : '' }} value="1">Public</option>
                         <option {{ $post->public === 0 ? 'selected' : '' }} value="0">Draft</option>
                     </select>
@@ -97,6 +88,13 @@
         });
         CKEDITOR.instances['postcontent'].setData("{!! $post->body !!}");
         CKEDITOR.instances['postexcerpt'].setData("{!! $post->excerpt !!}");
+        $('#tags').tagsinput({
+            tagClass: 'badge badge-primary p-2 m-1',
+            confirmKeys: [13, 32, 44],
+            maxChars: 20,
+            trimValue: true,
+            allowDuplicates: false,
+        });
         $('#upload').click(function() {
             CKFinder.popup({
                 chooseFiles: true,
@@ -128,12 +126,9 @@
             let excerpt = CKEDITOR.instances['postexcerpt'].getData();
             let category_id = $($this).parents('form').find('select[name="category_id"]').val();
             let post_thumb = $($this).parents('form').find('input[name="post_thumb"]').val();
-            var tags = [];
-            $.each($("input[name='tags']:checked"), function() {
-                tags.push($(this).val());
-            })
+            let tagsInput = $($this).parents('form').find('input[name="tags"]').val();
             let public = $($this).parents('form').find('select[name="public"]').val();
-
+            var tags = tagsInput.split(',');
             if (post_thumb == '') {
                 alert('Please select image');
                 return false;
@@ -154,7 +149,7 @@
             formData.append('tags', tags);
             formData.append('public', public);
             $.ajax({
-                url: "{{ route('admin.admin_dashboard.post.update', $post->id) }}",
+                url: "{{ route('admin.post.update', $post->id) }}",
                 type: 'POST',
                 contentType: false,
                 processData: false,
@@ -170,7 +165,7 @@
                             timer: 1500
                         }).then(function() {
                             window.location.href =
-                                "{{ route('admin.admin_dashboard.post.index') }}";
+                                "{{ route('admin.post.index') }}";
                         });
                     } else {
                         swal({

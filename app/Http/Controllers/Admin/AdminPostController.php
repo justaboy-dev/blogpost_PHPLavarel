@@ -64,19 +64,31 @@ class AdminPostController extends Controller
         } else {
             $attribute = $validate->validated();
             $attribute['user_id'] = auth()->user()->id;
-            // dd($attribute);
-            $data['success'] = 1;
-            $data['message'] = 'Create post successfully';
             $post = Post::create($attribute);
-            $post->tags()->sync(explode(',',$attribute['tags']));
-            if($attribute['post_thumb'][0] == '/'){
-                $image = Image::where('path',substr($attribute['post_thumb'],1))->first();
-            }else{
-                $image = Image::where('path',$attribute['post_thumb'])->first();
+            $alltags = [];
+            foreach (explode(',',$attribute['tags']) as $tagname) {
+                $tag = Tag::where('name',$tagname)->first();
+                if(!$tag){
+                    $tag = Tag::create(['name' => $tagname]);
+                }
+                $alltags[] = $tag->id;
             }
-            $post->images()->save($image);
+            $post->tags()->sync($alltags);
+            if($attribute['post_thumb'][0] == '/'){
+                $attribute['post_thumb'] = substr($attribute['post_thumb'],1);
+            }
+            $img = explode('/',$attribute['post_thumb']);
+            $post->images()->save(Image::create([
+                'name' => explode('.',$img[count($img)-1])[0],
+                'extension' => explode('.',end($img))[1],
+                'path' => $attribute['post_thumb'],
+                'imageable_id' => $post->id,
+                'imageable_type' => Post::class,
+            ]));
             $post->save();
             DB::commit();
+            $data['success'] = 1;
+            $data['message'] = 'Create post successfully';
         }
         return response()->json($data);
     }
@@ -92,6 +104,7 @@ class AdminPostController extends Controller
     }
     public function update(Post $post)
     {
+        // dd(request()->all());
         DB::beginTransaction();
         $data = array();
         $data['error'] = [];
@@ -125,13 +138,26 @@ class AdminPostController extends Controller
             $data['success'] = 1;
             $data['message'] = 'Update post successfully';
             $post->update($attribute);
-            $post->public = $attribute['public'];
-            $post->tags()->sync(explode(',',$attribute['tags']));
-            if($attribute['post_thumb'][0] == '/'){
-                $image = Image::where('path',substr($attribute['post_thumb'],1))->first();
-            }else{
-                $image = Image::where('path',$attribute['post_thumb'])->first();
+            // $post->public = $attribute['public'];
+            $alltags = [];
+            foreach (explode(',',$attribute['tags']) as $tagname) {
+                $tag = Tag::where('name',$tagname)->first();
+                if(!$tag){
+                    $tag = Tag::create(['name' => $tagname]);
+                }
+                $alltags[] = $tag->id;
             }
+            $post->tags()->sync($alltags);
+            if($attribute['post_thumb'][0] == '/'){
+                $attribute['post_thumb'] = substr($attribute['post_thumb'],1);
+            }
+            $image = Image::where('imageable_id',$post->id)->first();
+            $img = explode('/',$attribute['post_thumb']);
+            $image->update([
+                'name' => explode('.',$img[count($img)-1])[0],
+                'extension' => explode('.',end($img))[1],
+                'path' => $attribute['post_thumb'],
+            ]);
             $post->images()->save($image);
             $post->save();
             DB::commit();

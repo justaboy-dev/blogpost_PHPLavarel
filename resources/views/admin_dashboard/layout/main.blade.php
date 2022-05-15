@@ -12,16 +12,18 @@
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
-    @yield('custom-css')
     <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.style.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('vendor/bootstrap-tags-input/bootstrap-tagsinput.css') }}">
+    @yield('custom-css')
+
 </head>
 
 <body id="page-top">
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
             <a class="sidebar-brand d-flex align-items-center justify-content-center"
-                href="{{ route('admin.admin_dashboard.index') }}">
+                href="{{ route('admin.index') }}">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -29,28 +31,27 @@
             </a>
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
-                <a class="nav-link" href="{{ route('admin.admin_dashboard.index') }}">
+                <a class="nav-link" href="{{ route('admin.index') }}">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
             <hr class="sidebar-divider">
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapePost"
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapePost"
                     aria-expanded="true" aria-controls="collapePost">
                     <i class="fas fa-clipboard"></i>
                     <span>Post</span>
                 </a>
-                <div id="collapePost" class="collapse" aria-labelledby="headingPost"
-                    data-parent="#accordionSidebar">
+                <div id="collapePost" class="collapse">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('admin.admin_dashboard.post.index') }}">All Post</a>
-                        <a class="collapse-item" href="{{ route('admin.admin_dashboard.post.create') }}">Add Post</a>
+                        <a class="collapse-item" href="{{ route('admin.post.index') }}">All Post</a>
+                        <a class="collapse-item" href="{{ route('admin.post.create') }}">Add Post</a>
                     </div>
                 </div>
             </li>
             <hr class="sidebar-divider my-0">
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseCategory"
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCategory"
                     aria-expanded="true" aria-controls="collapseCategory">
                     <i class="fas fa-bars"></i>
                     <span>Category</span>
@@ -58,9 +59,9 @@
                 <div id="collapseCategory" class="collapse" aria-labelledby="headingCategory"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ route('admin.admin_dashboard.category.index') }}">All
+                        <a class="collapse-item" href="{{ route('admin.category.index') }}">All
                             Category</a>
-                        <a class="collapse-item" href="{{ route('admin.admin_dashboard.category.create') }}">Add
+                        <a class="collapse-item" href="{{ route('admin.category.create') }}">Add
                             Category</a>
                     </div>
                 </div>
@@ -68,7 +69,7 @@
 
             <hr class="sidebar-divider my-0">
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser"
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUser"
                     aria-expanded="true" aria-controls="collapseUser">
                     <i class="fas fa-users"></i>
                     <span>User</span>
@@ -76,8 +77,9 @@
                 <div id="collapseUser" class="collapse" aria-labelledby="headingUser"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="buttons.html">All User</a>
-                        <a class="collapse-item" href="cards.html">Add User</a>
+                        <a class="collapse-item" href="{{ route('admin.user.index') }}">All User</a>
+                        <a class="collapse-item" href="{{ route('admin.user.create') }}">Add
+                            User</a>
                     </div>
                 </div>
             </li>
@@ -135,9 +137,10 @@
         </div>
     </div>
     <script src="{{ asset('vendor/jquery/jquery.js') }}"></script>
-    <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap/js/bootstrap.js') }}"></script>
     <script src="{{ asset('vendor/jquery-easing/jquery.easing.js') }}"></script>
     <script src="{{ asset('js/sb-admin-2.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap-tags-input/bootstrap-tagsinput.js') }}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @yield('custom-js')
 </body>

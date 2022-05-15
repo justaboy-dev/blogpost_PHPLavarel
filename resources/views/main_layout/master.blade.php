@@ -12,6 +12,7 @@
     <title>@yield('tittle')</title>
     <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/plugins.css') }}">
     @yield('custom-css')
 </head>
 
@@ -244,6 +245,8 @@
     <script src="{{ asset('vendor/glightbox.js') }}"></script>
     <script src="{{ asset('vendor/plyr.js') }}"></script>
     <script src="{{ asset('vendor/counterup.min.js') }}"></script>
+    <script src="{{ asset('vendor/itooltip.min.js') }}"></script>
+    <script src="{{ asset('vendor/clipboard.min.js') }}"></script>
     <script src="{{ asset('vendor/noframework.waypoints.min.js') }}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="{{ asset('js/theme.js') }}"></script>

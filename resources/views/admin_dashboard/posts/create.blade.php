@@ -43,15 +43,7 @@
                 </div>
                 <div class="form-group mb-4">
                     <h4>Post tags</h4>
-                    @foreach ($tags as $tag)
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" value="{{ $tag->id }}" name="tags"
-                                id="tags[{{ $tag->id }}]">
-                            <label class="form-check-label" for="tags[{{ $tag->id }}]">
-                                {{ $tag->name }}
-                            </label>
-                        </div>
-                    @endforeach
+                    <input type="text" class="form-control" id="tags" name="tags" required />
                 </div>
                 <div class="form-group mb-4">
                     <h4>Post status</h4>
@@ -72,6 +64,13 @@
     <script src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
     <script src="{{ asset('vendor/ckfinder/ckfinder.js') }}"></script>
     <script>
+        $('#tags').tagsinput({
+            tagClass: 'badge badge-primary p-2 m-1',
+            confirmKeys: [13, 32, 44],
+            maxChars: 20,
+            trimValue: true,
+            allowDuplicates: false,
+        });
         CKEDITOR.replace('postcontent', {
             filebrowserBrowseUrl: "{{ asset('ckfinder/ckfinder.html') }}",
             filebrowserImageBrowseUrl: "{{ asset('ckfinder/ckfinder.html?type=Images') }}",
@@ -113,11 +112,9 @@
             let body = CKEDITOR.instances['postcontent'].getData();
             let excerpt = CKEDITOR.instances['postexcerpt'].getData();
             let category_id = $($this).parents('form').find('select[name="category_id"]').val();
+            let tagsInput = $($this).parents('form').find('input[name="tags"]').val();
             let post_thumb = $($this).parents('form').find('input[name="post_thumb"]').val();
-            var tags = [];
-            $.each($("input[name='tags']:checked"), function() {
-                tags.push($(this).val());
-            })
+            var tags = tagsInput.split(',');
             let public = $($this).parents('form').find('select[name="public"]').val();
 
             let formData = new FormData();
@@ -131,7 +128,7 @@
             formData.append('tags', tags);
             formData.append('public', public);
             $.ajax({
-                url: "{{ route('admin.admin_dashboard.post.store') }}",
+                url: "{{ route('admin.post.store') }}",
                 type: 'POST',
                 contentType: false,
                 processData: false,
