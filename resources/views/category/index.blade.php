@@ -38,7 +38,8 @@
                                         </li>
                                         <li class="post-comments">
                                             <a href="{{ route('category.show', $category) }}">
-                                                <i class="uil uil-tag"></i>{{ count($category->posts) }}
+                                                <i
+                                                    class="uil uil-tag"></i>{{ count($category->posts->where('public', true)) }}
                                                 <span>Posts</span>
                                             </a>
                                         </li>

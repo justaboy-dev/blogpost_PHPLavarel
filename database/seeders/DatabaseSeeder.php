@@ -48,8 +48,8 @@ class DatabaseSeeder extends Seeder
             'imageable_type' => Category::class,
         ]));
         $category = Category::factory(2)->create();
-        Tag::factory(2)->create();
-        $post = Post::factory(1)->create();
+        Tag::factory(3)->create();
+        $post = Post::factory(10)->create();
         Comment::factory(10)->create();
 
         foreach ($user as $u) {

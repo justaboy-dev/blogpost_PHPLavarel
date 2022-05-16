@@ -18,13 +18,13 @@ class AdminCategoryController extends Controller
             return $q->where("name","like","%".$request->get("name")."%");
         })->get();
         if($request->ajax()) {
-            return view('admin_dashboard.category.paginate', compact('categories'))->render();
+            return view('admin.category.paginate', compact('categories'))->render();
         }
-        return view('admin_dashboard.category.index', compact('categories'));
+        return view('admin.category.index', compact('categories'));
     }
     public function create()
     {
-        return view('admin_dashboard.category.create');
+        return view('admin.category.create');
     }
     public function store(Request $request)
     {
@@ -70,12 +70,12 @@ class AdminCategoryController extends Controller
     public function show($id)
     {
         $posts = Category::find($id)->posts;
-        return view('admin_dashboard.posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts'));
     }
     public function edit(Category $category)
     {
         // dd($category->images);
-        return view('admin_dashboard.category.edit', compact('category'));
+        return view('admin.category.edit', compact('category'));
     }
     public function update(Request $request,Category $category)
     {

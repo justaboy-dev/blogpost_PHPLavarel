@@ -5,7 +5,7 @@
     <ul class="unordered-list bullet-primary text-reset">
         @foreach ($categories as $category)
             <li><a href="{{ route('category.show', $category) }}">{{ $category->name }}
-                    ({{ $category->posts_count }})
+                    ({{ $category->posts->where('public', true)->count() }})
                 </a></li>
         @endforeach
     </ul>

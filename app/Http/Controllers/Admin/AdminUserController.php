@@ -17,12 +17,12 @@ class AdminUserController extends Controller
     public function index()
     {
         $users = User::all();
-        return view('admin_dashboard.user.index', compact('users'));
+        return view('admin.user.index', compact('users'));
     }
     public function create()
     {
         $roles = Role::all();
-        return view('admin_dashboard.user.create', compact('roles'));
+        return view('admin.user.create', compact('roles'));
     }
     public function store(Request $request)
     {
@@ -75,7 +75,7 @@ class AdminUserController extends Controller
     public function edit(User $user)
     {
         $roles = Role::all();
-        return view('admin_dashboard.user.edit', compact('user', 'roles'));
+        return view('admin.user.edit', compact('user', 'roles'));
     }
     public function update(Request $request, User $user)
     {

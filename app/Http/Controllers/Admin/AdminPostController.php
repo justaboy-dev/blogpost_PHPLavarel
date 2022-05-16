@@ -21,15 +21,15 @@ class AdminPostController extends Controller
             return $q->where("tittle","like","%".$request->get("tittle")."%");
         })->get();
         if($request->ajax()) {
-            return view('admin_dashboard.posts.paginate', compact('posts'))->render();
+            return view('admin.posts.paginate', compact('posts'))->render();
         }
-        return view('admin_dashboard.posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts'));
     }
     public function create()
     {
         $category = Category::all();
         $tags = Tag::all();
-        return view('admin_dashboard.posts.create',[
+        return view('admin.posts.create',[
             'categories' => $category,
             'tags' => $tags
         ]);
@@ -96,7 +96,7 @@ class AdminPostController extends Controller
     {
         $category = Category::all();
         $tags = Tag::all();
-        return view('admin_dashboard.posts.edit',[
+        return view('admin.posts.edit',[
             'post' => $post,
             'categories' => $category,
             'tags' => $tags

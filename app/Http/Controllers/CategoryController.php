@@ -22,7 +22,7 @@ class CategoryController extends Controller
         $tags = Tag::withCount('posts')->get();
         return view('category.show',[
             'category' => $category,
-            'posts' => $category->posts()->paginate(15),
+            'posts' => $category->posts()->where('public',true)->paginate(15),
             'popular_post' => $popular_post,
             'categories' => $categories,
             'tags' => $tags,

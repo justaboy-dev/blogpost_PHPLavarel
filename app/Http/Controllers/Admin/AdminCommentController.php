@@ -4,82 +4,105 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Post;
+use App\Models\Comment;
+use DB;
 
 class AdminCommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $comments = Comment::all();
+        return view('admin.comment.index', compact('comments'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        //
+        $posts = Post::all();
+        return view('admin.comment.create', compact('posts'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        DB::beginTransaction();
+        $data = array();
+        $data['error'] = [];
+        $data['success'] = 0;
+        $rule = [
+            'post_id' => 'required',
+            'the_comment' => 'required|min:3|max:255',
+        ];
+        $validate = Validator::make($request->all(), $rule);
+        if($validate->fails()){
+            $data['error'][] = $validate->errors()->first('post_id');
+            $data['error'][] = $validate->errors()->first('the_comment');
+            $data['message'] = 'Please check your input';
+            DB::rollback();
+        }
+        else{
+            $attribute = $validate->validated();
+            $attribute['user_id'] = auth()->user()->id;
+            $post = Post::find($attribute->post_id);
+            $post->comments()->create($attribute);
+            $data['success'] = 1;
+            $data['message'] = 'Comment has been added';
+            DB::commit();
+        }
+        return response()->json($data);
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         //
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit(Comment $comment)
     {
-        //
+        $posts = Post::all();
+        return view('admin.comment.edit', compact('comment', 'posts'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
+        DB::beginTransaction();
+        $data = array();
+        $data['error'] = [];
+        $data['success'] = 0;
+        $rule = [
+            'post_id' => 'required',
+            'the_comment' => 'required|min:3|max:255',
+        ];
+        $validate = Validator::make($request->all(), $rule);
+        if($validate->fails()){
+            $data['error'][] = $validate->errors()->first('post_id');
+            $data['error'][] = $validate->errors()->first('the_comment');
+            $data['message'] = 'Please check your input';
+            DB::rollback();
+        }
+        else{
+            $attribute = $validate->validated();
+            $comment = Comment::find($id);
+            $comment->update($attribute);
+            $data['success'] = 1;
+            $data['message'] = 'Comment has been updated';
+            DB::commit();
+        }
+        return response()->json($data);
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
-        //
+        DB::beginTransaction();
+        $data = array();
+        $data['error'] = [];
+        $data['success'] = 0;
+        $comment = Comment::find($id);
+        if($comment){
+            $comment->delete();
+            $data['success'] = 1;
+            $data['message'] = 'Comment has been deleted';
+            DB::commit();
+        }
+        else{
+            $data['error'][] = 'Comment not found';
+            $data['message'] = 'Please check your input';
+            DB::rollback();
+        }
+        return response()->json($data);
     }
 }

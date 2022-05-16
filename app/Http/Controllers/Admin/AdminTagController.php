@@ -13,16 +13,16 @@ class AdminTagController extends Controller
     public function index()
     {
         $tags = Tag::all();
-        return view('admin_dashboard.tag.index', compact('tags'));
+        return view('admin.tag.index', compact('tags'));
     }
     public function show($id)
     {
         $posts = Tag::find($id)->posts;
-        return view('admin_dashboard.posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts'));
     }
     public function edit(Tag $tag)
     {
-        return view('admin_dashboard.tag.edit', compact('tag'));
+        return view('admin.tag.edit', compact('tag'));
     }
     public function update(Request $request, $id)
     {

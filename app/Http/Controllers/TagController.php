@@ -19,7 +19,7 @@ class TagController extends Controller
         $categories = Category::withCount('posts')->orderBy('posts_count','DESC')->take(10)->get();
         $tags = Tag::withCount('posts')->get();
         return view('tag.show',[
-            'posts' => $tag->posts()->paginate(15),
+            'posts' => $tag->posts()->where('public',true)->paginate(15),
             'popular_post' => $popular_post,
             'categories' => $categories,
             'tags' => $tags,
