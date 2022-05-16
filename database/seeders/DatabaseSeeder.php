@@ -47,10 +47,10 @@ class DatabaseSeeder extends Seeder
             'imageable_id' => $default_cat->id,
             'imageable_type' => Category::class,
         ]));
-        $category = Category::factory(4)->create();
-        Tag::factory(4)->create();
-        $post = Post::factory(50)->create();
-        Comment::factory(150)->create();
+        $category = Category::factory(2)->create();
+        Tag::factory(2)->create();
+        $post = Post::factory(1)->create();
+        Comment::factory(10)->create();
 
         foreach ($user as $u) {
             $u->images()->save(Image::factory()->make());
@@ -60,8 +60,6 @@ class DatabaseSeeder extends Seeder
         }
         foreach ($post as $p) {
             $tags_ids = [];
-            $tags_ids[] = Tag::all()->random()->id;
-            $tags_ids[] = Tag::all()->random()->id;
             $tags_ids[] = Tag::all()->random()->id;
             $p->tags()->sync($tags_ids);
             $p->images()->save(Image::factory()->make());

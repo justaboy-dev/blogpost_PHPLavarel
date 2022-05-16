@@ -49,6 +49,7 @@
                     </div>
                 </div>
             </li>
+
             <hr class="sidebar-divider my-0">
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseCategory"
@@ -63,6 +64,36 @@
                             Category</a>
                         <a class="collapse-item" href="{{ route('admin.category.create') }}">Add
                             Category</a>
+                    </div>
+                </div>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTag"
+                    aria-expanded="true" aria-controls="collapseTag">
+                    <i class="fas fa-tag"></i>
+                    <span>Tag</span>
+                </a>
+                <div id="collapseTag" class="collapse" aria-labelledby="headingTag"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('admin.tag.index') }}">All
+                            Tag</a>
+                    </div>
+                </div>
+            </li>
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapeComment"
+                    aria-expanded="true" aria-controls="collapeComment">
+                    <i class="fas fa-comment fa-lg"></i>
+                    <span>Comment</span>
+                </a>
+                <div id="collapeComment" class="collapse">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('admin.comment.index') }}">All Comment</a>
+                        <a class="collapse-item" href="{{ route('admin.comment.create') }}">Add Comment</a>
                     </div>
                 </div>
             </li>

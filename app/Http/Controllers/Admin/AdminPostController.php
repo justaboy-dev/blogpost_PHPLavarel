@@ -104,7 +104,6 @@ class AdminPostController extends Controller
     }
     public function update(Post $post)
     {
-        // dd(request()->all());
         DB::beginTransaction();
         $data = array();
         $data['error'] = [];
@@ -119,7 +118,6 @@ class AdminPostController extends Controller
             'public' => 'required',
             'post_thumb' => 'required',
         ];
-        // dd(request()->all());
         $validate = Validator::make(request()->all(), $rules);
         if ($validate->fails()) {
             $data['error'][] = $validate->errors()->first('tittle');
@@ -134,11 +132,10 @@ class AdminPostController extends Controller
         } else {
             $attribute = $validate->validated();
             $attribute['user_id'] = auth()->user()->id;
-            // dd($attribute);
             $data['success'] = 1;
             $data['message'] = 'Update post successfully';
             $post->update($attribute);
-            // $post->public = $attribute['public'];
+            $post->public = $attribute['public'];
             $alltags = [];
             foreach (explode(',',$attribute['tags']) as $tagname) {
                 $tag = Tag::where('name',$tagname)->first();
@@ -168,8 +165,16 @@ class AdminPostController extends Controller
     {
         DB::beginTransaction();
         $data = array();
-        $post = Post::find($id)->delete();
+        $post = Post::find($id);
         if ($post) {
+            if($post->tags->count() > 1){
+                $post->tags()->detach();
+            }
+            else
+            {
+                $post->tags()->delete();
+            }
+            $post->delete();
             $data['message'] = 'Delete post successfully';
             $data['success'] = 1;
             DB::commit();

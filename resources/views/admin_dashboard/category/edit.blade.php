@@ -1,7 +1,8 @@
-@extends('admin_dashboard.layout.main') @section('tittle', 'Update Category')
+@extends('admin_dashboard.layout.main') @section('tittle', 'Update Category: ' . $category->name)
 @section('content')
     <div class="alert alert-info global-success global-alert d-none"></div>
     <form onsubmit="return false;" method="post">
+        @method('PUT')
         @csrf
         <div class="row">
             <div class="col-md-8">
@@ -60,17 +61,20 @@
             let name = $($this).parents('form').find('input[name="name"]').val();
             let slug = $($this).parents('form').find('input[name="slug"]').val();
             let category_thumb = $($this).parents('form').find('input[name="category_thumb"]').val();
-            let formData = new FormData();
-            formData.append('_token', csrf_token);
-            formData.append('name', name);
-            formData.append('slug', slug);
-            formData.append('category_thumb', category_thumb);
             $.ajax({
+                headers: {
+                    'X-CSRF-TOKEN': csrf_token,
+                },
                 url: "{{ route('admin.category.update', $category) }}",
-                type: 'POST',
-                contentType: false,
+                type: 'PUT',
+                contentType: 'application/json',
                 processData: false,
-                data: formData,
+                data: JSON.stringify({
+                    "_token": csrf_token,
+                    "name": name,
+                    "slug": slug,
+                    "category_thumb": category_thumb
+                }),
                 dataType: 'JSON',
                 success: function(data) {
                     if (data.success) {

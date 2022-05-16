@@ -14,11 +14,11 @@
         @foreach ($users as $user)
             <tr>
                 <td class="text-center">{{ $user->id }}</td>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
+                <td class="col-sm-3">{{ $user->name }}</td>
+                <td class="col-sm-3">{{ $user->email }}</td>
 
-                <td>{{ $user->role->name }}</td>
-                <td>
+                <td class="col-sm-2">{{ $user->role->name }}</td>
+                <td class="col-sm-1">
                     @if ($user->status === 1)
                         <span class="badge badge-success pl-3 pr-3 pt-2 pb-2"><i class="fas fa-circle pr-1"></i>
                             Active</span>
@@ -27,8 +27,8 @@
                             Supend</span>
                     @endif
                 </td>
-                <td>{{ $user->created_at->diffForHumans() }}</td>
-                <td>
+                <td class="col-sm-2">{{ $user->created_at->diffForHumans() }}</td>
+                <td class="col-sm-2">
                     <div class="d-flex flex-row justify-content-center">
                         <a href="{{ route('admin.user.edit', $user) }}"><input type="button"
                                 class="btn btn-primary mr-1" value="Edit"></a>

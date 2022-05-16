@@ -69,7 +69,8 @@ class AdminCategoryController extends Controller
     }
     public function show($id)
     {
-        //
+        $posts = Category::find($id)->posts;
+        return view('admin_dashboard.posts.index', compact('posts'));
     }
     public function edit(Category $category)
     {

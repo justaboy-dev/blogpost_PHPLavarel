@@ -1,7 +1,8 @@
 @extends('admin_dashboard.layout.main')
-@section('tittle', 'Edit Post')
+@section('tittle', 'Edit Post: ' . $post->tittle)
 @section('content')
     <form onsubmit="return false;" method="post">
+        @method('PUT')
         @csrf
         <div class="row">
             <div class="col-md-8">
@@ -126,36 +127,35 @@
             let excerpt = CKEDITOR.instances['postexcerpt'].getData();
             let category_id = $($this).parents('form').find('select[name="category_id"]').val();
             let post_thumb = $($this).parents('form').find('input[name="post_thumb"]').val();
-            let tagsInput = $($this).parents('form').find('input[name="tags"]').val();
+            let tags = $($this).parents('form').find('input[name="tags"]').val();
             let public = $($this).parents('form').find('select[name="public"]').val();
-            var tags = tagsInput.split(',');
+            // var tags = tagsInput.split(',');
             if (post_thumb == '') {
                 alert('Please select image');
                 return false;
             }
-            if (tags.length == 0) {
-                alert('Please select at least one tag');
-                return false;
-            }
-
-            let formData = new FormData();
-            formData.append('_token', csrf_token);
-            formData.append('tittle', tittle);
-            formData.append('slug', slug);
-            formData.append('body', body);
-            formData.append('excerpt', excerpt);
-            formData.append('category_id', category_id);
-            formData.append('post_thumb', post_thumb);
-            formData.append('tags', tags);
-            formData.append('public', public);
             $.ajax({
+                header: {
+                    'X-CSRF-TOKEN': csrf_token
+                },
                 url: "{{ route('admin.post.update', $post->id) }}",
-                type: 'POST',
-                contentType: false,
+                type: 'PUT',
+                contentType: 'application/json',
                 processData: false,
-                data: formData,
+                data: JSON.stringify({
+                    tittle: tittle,
+                    slug: slug,
+                    body: body,
+                    excerpt: excerpt,
+                    category_id: category_id,
+                    post_thumb: post_thumb,
+                    tags: tags,
+                    public: public,
+                    _token: csrf_token
+                }),
                 dataType: 'JSON',
                 success: function(data) {
+                    console.log(data);
                     if (data.success) {
                         swal({
                             position: 'top-end',

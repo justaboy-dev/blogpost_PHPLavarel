@@ -1,6 +1,7 @@
-@extends('admin_dashboard.layout.main') @section('tittle', 'Edit User')
+@extends('admin_dashboard.layout.main') @section('tittle', 'Edit User: ' . $user->name)
 @section('content')
     <form onsubmit="return false;" method="post">
+        @method('PUT')
         @csrf
         <div class="row">
             <div class="col-md-8">
@@ -90,22 +91,24 @@
             let role_id = $($this).parents('form').find('select[name="role_id"]').val();
             let status = $($this).parents('form').find('select[name="status"]').val();
             let post_thumb = $($this).parents('form').find('input[name="post_thumb"]').val();
-
-            let formData = new FormData();
-            formData.append('_token', csrf_token);
-            formData.append('name', name);
-            formData.append('email', email);
-            formData.append('password', password);
-            formData.append('password_confirmation', password_confirmation);
-            formData.append('role_id', role_id);
-            formData.append('status', status);
-            formData.append('post_thumb', post_thumb);
             $.ajax({
+                header: {
+                    'X-CSRF-TOKEN': csrf_token
+                },
                 url: "{{ route('admin.user.update', $user) }}",
-                type: 'POST',
-                contentType: false,
+                type: 'PUT',
+                contentType: 'application/json',
                 processData: false,
-                data: formData,
+                data: JSON.stringify({
+                    _token: csrf_token,
+                    name: name,
+                    email: email,
+                    password: password,
+                    password_confirmation: password_confirmation,
+                    role_id: role_id,
+                    status: status,
+                    post_thumb: post_thumb,
+                }),
                 dataType: 'JSON',
                 success: function(data) {
                     console.log(data);

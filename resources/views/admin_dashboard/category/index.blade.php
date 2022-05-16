@@ -11,7 +11,7 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             <div class="table-responsive">
-                @include('admin_dashboard.category.paginate', [
+                @include('admin_dashboard.category.category-paginate', [
                     'categories' => $categories,
                 ])
             </div>
