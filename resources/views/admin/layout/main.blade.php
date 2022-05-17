@@ -14,6 +14,7 @@
         rel="stylesheet">
     <link href="{{ asset('css/sb-admin-2.css') }}" rel="stylesheet">
     <link href="{{ asset('css/custom.style.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendor/bootstrap-toggle/css/bootstrap-toggle.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('vendor/bootstrap-tags-input/bootstrap-tagsinput.css') }}">
     @yield('custom-css')
 
@@ -100,6 +101,22 @@
 
             <hr class="sidebar-divider my-0">
             <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseRole"
+                    aria-expanded="true" aria-controls="collapseRole">
+                    <i class="fas fa-key"></i>
+                    <span>Role</span>
+                </a>
+                <div id="collapseRole" class="collapse" aria-labelledby="headingRole"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('admin.role.index') }}">All Role</a>
+                        <a class="collapse-item" href="{{ route('admin.role.create') }}">Add Role</a>
+                    </div>
+                </div>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUser"
                     aria-expanded="true" aria-controls="collapseUser">
                     <i class="fas fa-users"></i>
@@ -172,6 +189,7 @@
     <script src="{{ asset('vendor/jquery-easing/jquery.easing.js') }}"></script>
     <script src="{{ asset('js/sb-admin-2.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap-tags-input/bootstrap-tagsinput.js') }}"></script>
+    <script src="{{ asset('vendor/bootstrap-toggle/js/bootstrap-toggle.js') }}"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     @yield('custom-js')
 </body>

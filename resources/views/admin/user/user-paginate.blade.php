@@ -23,8 +23,8 @@
                         <span class="badge badge-success pl-3 pr-3 pt-2 pb-2"><i class="fas fa-circle pr-1"></i>
                             Active</span>
                     @else
-                        <span class="badge badge-warning pl-3 pr-3 pt-2 pb-2"><i class="fas fa-square pr-1"></i>
-                            Supend</span>
+                        <span class="badge badge-danger pl-3 pr-3 pt-2 pb-2"><i class="fas fa-square pr-1"></i>
+                            Disable</span>
                     @endif
                 </td>
                 <td class="col-sm-2">{{ $user->created_at->diffForHumans() }}</td>

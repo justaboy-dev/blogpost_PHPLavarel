@@ -53,11 +53,16 @@
                         value="{{ join(',', $post->tags->pluck('name')->toArray()) }}" name="tags" required />
                 </div>
                 <div class="form-group mb-4">
-                    <h4>Post status</h4>
-                    <select class="form-control" id="poststatus" required name="public">
-                        <option {{ $post->public === 1 ? 'selected' : '' }} value="1">Public</option>
-                        <option {{ $post->public === 0 ? 'selected' : '' }} value="0">Draft</option>
-                    </select>
+                    <div class="row justify-content-between">
+                        <div class="col-4" style="padding-left: 0">
+                            <h4>Published</h4>
+                        </div>
+                        <div class="col-3" style="padding-right: 0">
+                            <input type="checkbox" name="public" data-toggle="toggle" data-on="Publish" id="public"
+                                data-off="Draft" data-onstyle="success" data-offstyle="warning"
+                                {{ $post->public ? 'checked' : '' }}>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group mb-4">
                     <input type="submit" id="postUpdate" class="btn btn-success btn-lg btn-block" value="Update">
@@ -128,8 +133,7 @@
             let category_id = $($this).parents('form').find('select[name="category_id"]').val();
             let post_thumb = $($this).parents('form').find('input[name="post_thumb"]').val();
             let tags = $($this).parents('form').find('input[name="tags"]').val();
-            let public = $($this).parents('form').find('select[name="public"]').val();
-            // var tags = tagsInput.split(',');
+            let public = $($this).parents('form').find('input[name="public"]').is(':checked') ? 1 : 0;
             if (post_thumb == '') {
                 alert('Please select image');
                 return false;

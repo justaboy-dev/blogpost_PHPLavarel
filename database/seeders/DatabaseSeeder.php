@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\Route;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Category;
@@ -12,6 +13,7 @@ use App\Models\Post;
 use App\Models\Comment;
 use App\Models\Tag;
 use App\Models\Image;
+use App\Models\Permission;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,7 +25,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Schema::disableForeignKeyConstraints();
-
         User::truncate();
         Role::truncate();
         Category::truncate();
@@ -31,10 +32,20 @@ class DatabaseSeeder extends Seeder
         Comment::truncate();
         Tag::truncate();
         Image::truncate();
-
         Schema::enableForeignKeyConstraints();
         Role::factory(1)->create();
         Role::factory(1)->create(['name'=>'admin']);
+        $page_route = Route::getRoutes();
+        $permissionId = [];
+        foreach($page_route as $route)
+        {
+            if(strpos($route->getName(),'admin') !== false )
+            {
+                $permission = Permission::create(['name'=>$route->getName()]);
+                $permissionId[] = $permission->id;
+            }
+        }
+        Role::where('name','admin')->first()->permissions()->sync($permissionId);
         $user = User::factory(7)->create();
         $default_cat = Category::factory()->create([
             'name' => 'Uncategorized',

@@ -12,3 +12,7 @@
     height: 100%;
     object-fit: scale-down;
 }
+
+.toggle {
+    width: 100% !important;
+}

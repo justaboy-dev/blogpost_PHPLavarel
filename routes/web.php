@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminTagController;
 use App\Http\Controllers\Admin\AdminCommentController;
+use App\Http\Controllers\Admin\AdminRolesController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -39,7 +40,7 @@ Route::get('/tag/{tag:name}', [TagController::class,'show'])->name('tag.show');
 Route::get('/author/{author:name}',[AuthorController::class,'show'])->name('author.show');
 
 //admin
-Route::prefix('admin')->name('admin.')->middleware(['auth','isadmin'])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth','isadmin','checkPermission'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
 
     Route::resource('post',AdminPostController::class)->except(['show']);
@@ -47,6 +48,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','isadmin'])->group(fu
     Route::resource('user',AdminUserController::class);
     Route::resource('tag',AdminTagController::class)->except(['create','store']);
     Route::resource('comment', AdminCommentController::class);
+    Route::resource('role', AdminRolesController::class);
 });
 
 

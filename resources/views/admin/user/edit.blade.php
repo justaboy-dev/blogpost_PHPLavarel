@@ -36,11 +36,16 @@
                     </select>
                 </div>
                 <div class="form-group mb-4">
-                    <h4>Status</h4>
-                    <select class="form-control" id="status" required name="status">
-                        <option {{ $user->status === 1 ? 'selected' : '' }} value="1">Active</option>
-                        <option {{ $user->status === 0 ? 'selected' : '' }} value="0">Supend</option>
-                    </select>
+                    <div class="row justify-content-between">
+                        <div class="col-8" style="padding-left: 0">
+                            <h4>Status</h4>
+                        </div>
+                        <div class="col-2" style="padding-right: 0">
+                            <input type="checkbox" name="status" data-toggle="toggle" data-on="Active" id="status"
+                                data-off="Disable" data-onstyle="success" data-offstyle="danger"
+                                {{ $user->status ? 'checked' : '' }}>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-md-4">
@@ -89,7 +94,7 @@
             let password = $($this).parents('form').find('input[name="password"]').val();
             let password_confirmation = $($this).parents('form').find('input[name="password_confirmation"]').val();
             let role_id = $($this).parents('form').find('select[name="role_id"]').val();
-            let status = $($this).parents('form').find('select[name="status"]').val();
+            let status = $($this).parents('form').find('input[name="status"]').is(':checked') ? 1 : 0;
             let post_thumb = $($this).parents('form').find('input[name="post_thumb"]').val();
             $.ajax({
                 header: {

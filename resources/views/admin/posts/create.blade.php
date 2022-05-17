@@ -46,11 +46,15 @@
                     <input type="text" class="form-control" id="tags" name="tags" required />
                 </div>
                 <div class="form-group mb-4">
-                    <h4>Post status</h4>
-                    <select class="form-control" id="poststatus" value="1" required name="public">
-                        <option value="1" selected>Public</option>
-                        <option value="0">Draft</option>
-                    </select>
+                    <div class="row justify-content-between">
+                        <div class="col-4" style="padding-left: 0">
+                            <h4>Published</h4>
+                        </div>
+                        <div class="col-3" style="padding-right: 0">
+                            <input type="checkbox" name="public" data-toggle="toggle" data-on="Publish" id="public"
+                                data-off="Draft" data-onstyle="success" data-offstyle="warning" checked>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group mb-4">
                     <input type="submit" id="postSave" class="btn btn-success btn-lg btn-block" value="Save">
@@ -115,7 +119,8 @@
             let tagsInput = $($this).parents('form').find('input[name="tags"]').val();
             let post_thumb = $($this).parents('form').find('input[name="post_thumb"]').val();
             var tags = tagsInput.split(',');
-            let public = $($this).parents('form').find('select[name="public"]').val();
+            let public = $($this).parents('form').find('input[name="public"]').is(':checked') ? 1 : 0;
+
 
             let formData = new FormData();
             formData.append('_token', csrf_token);
@@ -149,6 +154,8 @@
                         CKEDITOR.instances['postexcerpt'].setData('');
                         $('#postthumb').attr('src', "{{ asset('storage/images/upload.jpg') }}");
                         $('#postthumbnail').val('');
+                        $('#tags').tagsinput('removeAll');
+                        $('#public').bootstrapToggle('on');
                     } else {
                         swal({
                             position: 'top-end',
