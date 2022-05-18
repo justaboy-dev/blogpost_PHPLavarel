@@ -14,7 +14,7 @@ class CheckPermission
         $route_arr = auth()->user()->role->permissions->toArray();
 
         foreach ($route_arr as $route) {
-            if($route['name'] == $route_name) {
+            if($route['name'] == $route_name && auth()->user()->status == 1){
                 return $next($request);
             }
         }

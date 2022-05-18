@@ -30,11 +30,11 @@ class ContactController extends Controller
         $validate = Validator::make(request()->all(), $rules);
 
         if ($validate->fails()) {
-            $data['error']['first_name'] = $validate->errors()->first('first_name');
-            $data['error']['last_name'] = $validate->errors()->first('last_name');
-            $data['error']['email'] = $validate->errors()->first('email');
-            $data['error']['subject'] = $validate->errors()->first('subject');
-            $data['error']['message'] = $validate->errors()->first('message');
+            $data['error'][] = $validate->errors()->first('first_name');
+            $data['error'][] = $validate->errors()->first('last_name');
+            $data['error'][] = $validate->errors()->first('email');
+            $data['error'][] = $validate->errors()->first('subject');
+            $data['error'][] = $validate->errors()->first('message');
             $data['message'] = 'Please check the form';
         } else {
             $attribute = $validate->validated();

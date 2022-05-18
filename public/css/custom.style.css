@@ -16,3 +16,9 @@
 .toggle {
     width: 100% !important;
 }
+
+.rounded-rectage-height-avatar {
+    border-radius: 5% !important;
+    height: 4rem;
+    width: 4rem;
+}

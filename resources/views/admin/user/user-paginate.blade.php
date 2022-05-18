@@ -2,8 +2,10 @@
     <thead>
         <tr role="row">
             <th class="text-center">ID</th>
+            <th>Image</th>
             <th>Name</th>
             <th>Email</th>
+            <th>Related Post</th>
             <th>Role</th>
             <th>Status</th>
             <th>Created At</th>
@@ -14,10 +16,17 @@
         @foreach ($users as $user)
             <tr>
                 <td class="text-center">{{ $user->id }}</td>
-                <td class="col-sm-3">{{ $user->name }}</td>
+                <td class="col-sm-1 text-center">
+                    <img src="{{ asset($user->images->path) }}" alt="{{ $user->name }}"
+                        class="img-fluid rounded-rectage-height-avatar">
+                </td>
+                <td class="col-sm-2">{{ $user->name }}</td>
                 <td class="col-sm-3">{{ $user->email }}</td>
-
-                <td class="col-sm-2">{{ $user->role->name }}</td>
+                <td class="col-sm-2 text-center">
+                    <a href="{{ route('admin.user.show', $user->id) }}"><input type="button" class="btn btn-primary"
+                            value="Related Post"></a>
+                </td>
+                <td class="col-sm-1">{{ $user->role->name }}</td>
                 <td class="col-sm-1">
                     @if ($user->status === 1)
                         <span class="badge badge-success pl-3 pr-3 pt-2 pb-2"><i class="fas fa-circle pr-1"></i>
@@ -32,8 +41,8 @@
                     <div class="d-flex flex-row justify-content-center">
                         <a href="{{ route('admin.user.edit', $user) }}"><input type="button"
                                 class="btn btn-primary mr-1" value="Edit"></a>
-                        {{-- <input type="button" class="btn btn-danger mr-1"
-                            onclick="deleteUser({{ $user->id }},'{{ csrf_token() }}')" value="Delete"> --}}
+                        <input type="button" class="btn btn-danger mr-1"
+                            onclick="deleteUser({{ $user->id }},'{{ csrf_token() }}')" value="Delete">
                     </div>
                 </td>
             </tr>

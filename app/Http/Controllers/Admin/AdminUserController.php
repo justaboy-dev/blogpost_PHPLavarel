@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Post;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules;
 use App\Models\Image;
@@ -127,20 +128,38 @@ class AdminUserController extends Controller
     }
     public function destroy($id)
     {
-        // // DB::beginTransaction();
-        // // $data = array();
-        // $user = User::find($id);
-        // // if ($user) {
-        // //     $data['message'] = 'Delete user successfully';
-        // //     $data['success'] = 1;
-        // //     DB::commit();
-        // // }
-        // // else
-        // // {
-        // //     $data['message'] = 'Delete user failed';
-        // //     $data['success'] = 0;
-        // //     DB::rollback();
-        // // }
-        // return response()->json($user);
+        DB::beginTransaction();
+        $data = array();
+        if($id == auth()->id())
+        {
+            $data['success'] = 0;
+            $data['message'] = 'You can not delete yourself';
+            DB::rollback();
+        }
+        else
+        {
+            $user = User::find($id);
+            User::whereHas('role',function($q){
+                $q->where('name','admin');
+            })->first()->posts()->saveMany($user->posts);
+            if ($user) {
+                $user->delete();
+                $data['message'] = 'Delete user successfully';
+                $data['success'] = 1;
+                DB::commit();
+            }
+            else
+            {
+                $data['message'] = 'Delete user failed';
+                $data['success'] = 0;
+                DB::rollback();
+            }
+        }
+        return response()->json($data);
+    }
+    public function show($id)
+    {
+        $posts = Post::where('user_id',$id)->get();
+        return view('admin.posts.index',compact('posts'));
     }
 }

@@ -16,6 +16,8 @@ use App\Http\Controllers\Admin\AdminUserController;
 use App\Http\Controllers\Admin\AdminTagController;
 use App\Http\Controllers\Admin\AdminCommentController;
 use App\Http\Controllers\Admin\AdminRolesController;
+use App\Http\Controllers\Admin\AdminContactController;
+use App\Http\Controllers\Admin\AdminSettingController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -40,7 +42,7 @@ Route::get('/tag/{tag:name}', [TagController::class,'show'])->name('tag.show');
 Route::get('/author/{author:name}',[AuthorController::class,'show'])->name('author.show');
 
 //admin
-Route::prefix('admin')->name('admin.')->middleware(['auth','isadmin','checkPermission'])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth','checkPermission'])->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
 
     Route::resource('post',AdminPostController::class)->except(['show']);
@@ -49,6 +51,14 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','isadmin','checkPermi
     Route::resource('tag',AdminTagController::class)->except(['create','store']);
     Route::resource('comment', AdminCommentController::class);
     Route::resource('role', AdminRolesController::class);
+    Route::resource('contact',AdminContactController::class)->except(['create','store','edit','update','show']);
+
+    Route::get('setting/about',[AdminSettingController::class,'edit_about_us'])->name('setting.edit_about_us');
+    Route::get('setting/contact',[AdminSettingController::class,'edit_contact_us'])->name('setting.edit_contact_us');
+
+    Route::put('setting/about',[AdminSettingController::class,'update_about_us'])->name('setting.update_about_us');
+    Route::put('setting/contact',[AdminSettingController::class,'update_contact_us'])->name('setting.update_contact_us');
+
 });
 
 

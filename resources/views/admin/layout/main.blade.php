@@ -101,6 +101,20 @@
 
             <hr class="sidebar-divider my-0">
             <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapeContact"
+                    aria-expanded="true" aria-controls="collapeContact">
+                    <i class="fas fa-envelope"></i>
+                    <span>Contact</span>
+                </a>
+                <div id="collapeContact" class="collapse">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('admin.contact.index') }}">All Contact</a>
+                    </div>
+                </div>
+            </li>
+
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseRole"
                     aria-expanded="true" aria-controls="collapseRole">
                     <i class="fas fa-key"></i>
@@ -131,6 +145,25 @@
                     </div>
                 </div>
             </li>
+
+            <hr class="sidebar-divider my-0">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseSetting"
+                    aria-expanded="true" aria-controls="collapseSetting">
+                    <i class="fas fa-cogs"></i>
+                    <span>Setting</span>
+                </a>
+                <div id="collapseSetting" class="collapse" aria-labelledby="headingSetting"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="{{ route('admin.setting.edit_about_us') }}">Edit
+                            About</a>
+                        <a class="collapse-item" href="{{ route('admin.setting.edit_contact_us') }}">Edit
+                            Contact</a>
+                    </div>
+                </div>
+            </li>
+
 
             <hr class="sidebar-divider d-none d-md-block mb-4">
             <div class="text-center d-none d-md-inline">

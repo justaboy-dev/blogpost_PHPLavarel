@@ -5,28 +5,8 @@
 
 @section('content')
     <div class="content-wrapper">
-        <section class="wrapper bg-soft-primary">
-            <div class="container pt-10 pb-19 pt-md-14 pb-md-20 text-center">
-                <div class="row">
-                    <div class="col-sm-10 col-md-8 col-lg-6 col-xl-6 col-xxl-5 mx-auto">
-                        <h1 class="display-1 mb-3">Get in Touch</h1>
-                        <nav class="d-inline-block" aria-label="breadcrumb">
-                            <ol class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Contact</li>
-                            </ol>
-                        </nav>
-                        <!-- /nav -->
-                    </div>
-                    <!-- /column -->
-                </div>
-                <!-- /.row -->
-            </div>
-            <!-- /.container -->
-        </section>
-        <!-- /section -->
         <section class="wrapper bg-light angled upper-end">
-            <div class="container py-14 py-md-16">
+            <div class="container py-14 py-md-4">
                 <div class="row gy-10 gx-lg-8 gx-xl-12 mb-16 align-items-center">
                     <div class="col-lg-7 position-relative">
                         <div class="shape bg-dot primary rellax w-18 h-18" data-rellax-speed="1"
@@ -198,6 +178,7 @@
                             position: 'top-end',
                             icon: 'error',
                             title: data.message,
+                            text: data.error.join('\n'),
                             button: false,
                             timer: 1500
                         })

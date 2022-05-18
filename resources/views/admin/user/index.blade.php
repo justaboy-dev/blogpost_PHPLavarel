@@ -22,11 +22,11 @@
         $('#userTable').DataTable({
             "columnDefs": [{
                     "orderable": false,
-                    "targets": [6]
+                    "targets": [1, 7]
                 },
                 {
                     "orderable": true,
-                    "targets": [0, 1, 2, 3, 4, 5]
+                    "targets": [0, 2, 3, 4, 5, 6]
                 }
             ],
             pageLength: 20,

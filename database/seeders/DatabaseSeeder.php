@@ -14,14 +14,22 @@ use App\Models\Comment;
 use App\Models\Tag;
 use App\Models\Image;
 use App\Models\Permission;
+use App\Models\Setting;
 
 class DatabaseSeeder extends Seeder
 {
-    /**
-     * Seed the application's database.
-     *
-     * @return void
-     */
+    private $settings = [
+        'about_tittle',
+        'about_description',
+        'about_image',
+        'about_sub_tittle',
+        'about_sub_description',
+        'about_contact_tittle',
+        'address',
+        'phone',
+        'email',
+        'contact_tittle',
+    ];
     public function run()
     {
         Schema::disableForeignKeyConstraints();
@@ -32,6 +40,8 @@ class DatabaseSeeder extends Seeder
         Comment::truncate();
         Tag::truncate();
         Image::truncate();
+        Setting::truncate();
+        Permission::truncate();
         Schema::enableForeignKeyConstraints();
         Role::factory(1)->create();
         Role::factory(1)->create(['name'=>'admin']);
@@ -74,6 +84,13 @@ class DatabaseSeeder extends Seeder
             $tags_ids[] = Tag::all()->random()->id;
             $p->tags()->sync($tags_ids);
             $p->images()->save(Image::factory()->make());
+        }
+        foreach($this->settings as $setting)
+        {
+            Setting::create([
+                'key' => $setting,
+                'value' => '',
+            ]);
         }
     }
 }
