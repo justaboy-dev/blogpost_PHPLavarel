@@ -20,26 +20,19 @@ use App\Http\Controllers\Admin\AdminContactController;
 use App\Http\Controllers\Admin\AdminSettingController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-
 Route::middleware('post_views')->group(function(){
     Route::get('/posts/{post:slug}', [PostController::class,'show'])->name('posts.show');
 });
-
+Route::get('/search', [PostController::class,'search'])->name('posts.search');
 Route::post('/post/{post:slug}', [PostController::class,'add_comment'])->name('posts.add_comment');
-
 Route::get('/about', AboutController::class)->name('about');
-
-
 Route::get('/contact', [ContactController::class,'create'])->name('contact.create');
 Route::post('/contact', [ContactController::class,'store'])->name('contact.store');
-
 Route::get('/category/{category:slug}', [CategoryController::class,'show'])->name('category.show');
 Route::get('/category', [CategoryController::class,'index'])->name('category.index');
-
 Route::get('/tag/{tag:name}', [TagController::class,'show'])->name('tag.show');
-
-
 Route::get('/author/{author:name}',[AuthorController::class,'show'])->name('author.show');
+
 
 //admin
 Route::prefix('admin')->name('admin.')->middleware(['auth','checkPermission'])->group(function () {
@@ -54,10 +47,7 @@ Route::prefix('admin')->name('admin.')->middleware(['auth','checkPermission'])->
     Route::resource('contact',AdminContactController::class)->except(['create','store','edit','update','show']);
 
     Route::get('setting/about',[AdminSettingController::class,'edit_about_us'])->name('setting.edit_about_us');
-    Route::get('setting/contact',[AdminSettingController::class,'edit_contact_us'])->name('setting.edit_contact_us');
-
     Route::put('setting/about',[AdminSettingController::class,'update_about_us'])->name('setting.update_about_us');
-    Route::put('setting/contact',[AdminSettingController::class,'update_contact_us'])->name('setting.update_contact_us');
 
 });
 

@@ -48,4 +48,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Category::class);
     }
+    public function isAdmin()
+    {
+        return $this->role->name == 'admin';
+    }
 }

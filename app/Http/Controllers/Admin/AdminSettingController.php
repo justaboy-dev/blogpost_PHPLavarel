@@ -65,12 +65,4 @@ class AdminSettingController extends Controller
         }
         return response()->json($data);
     }
-    public function edit_contact_us()
-    {
-        return view('admin.setting.contact_us');
-    }
-    public function update_contact_us(Request $request, $id)
-    {
-
-    }
 }

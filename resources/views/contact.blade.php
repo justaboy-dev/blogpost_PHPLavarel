@@ -30,7 +30,8 @@
                                     <div class="col-md-10">
                                         <div class="card bg-pale-primary text-center counter-wrapper">
                                             <div class="card-body py-11">
-                                                <h3 class="counter text-nowrap" style="visibility: visible;">5000+</h3>
+                                                <h3 class="counter text-nowrap" style="visibility: visible;">
+                                                    {{ $user_count }}+</h3>
                                                 <p class="mb-0">Satisfied Customers</p>
                                             </div>
                                             <!--/.card-body -->
@@ -55,8 +56,7 @@
                             </div>
                             <div>
                                 <h5 class="mb-1">Address</h5>
-                                <address>Moonshine St. 14/05 Light City, <br class="d-none d-md-block">London, United
-                                    Kingdom</address>
+                                <address>{{ $settings->where('key', 'address')->first()->value }}</address>
                             </div>
                         </div>
                         <div class="d-flex flex-row">
@@ -65,7 +65,7 @@
                             </div>
                             <div>
                                 <h5 class="mb-1">Phone</h5>
-                                <p>00 (123) 456 78 90</p>
+                                <p>{{ $settings->where('key', 'phone')->first()->value }}</p>
                             </div>
                         </div>
                         <div class="d-flex flex-row">
@@ -74,8 +74,10 @@
                             </div>
                             <div>
                                 <h5 class="mb-1">E-mail</h5>
-                                <p class="mb-0"><a href="mailto:sandbox@email.com"
-                                        class="link-body">sandbox@email.com</a></p>
+                                <p class="mb-0"><a
+                                        href="mailto:{{ $settings->where('key', 'email')->first()->value }}"
+                                        class="link-body">{{ $settings->where('key', 'email')->first()->value }}</a>
+                                </p>
                             </div>
                         </div>
                     </div>

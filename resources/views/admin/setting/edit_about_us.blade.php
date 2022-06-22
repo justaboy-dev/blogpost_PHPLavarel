@@ -48,7 +48,8 @@
                     <h4>Image</h4>
                     <div class="custom_image_box" id="upload" role="button">
                         <img id="about_image_select"
-                            src="{{ asset($settings->where('key', 'about_image')->first()->value) }}" alt="">
+                            src="{{ $settings->where('key', 'about_image')->first()->value ? asset($settings->where('key', 'about_image')->first()->value) : asset('storage/images/upload.jpg') }}"
+                            alt="">
                         <input type="text" id="about_image" name="about_image" hidden required
                             value="{{ $settings->where('key', 'about_image')->first()->value }}">
                     </div>

@@ -23,12 +23,8 @@
 <body id="page-top">
     <div id="wrapper">
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-            <a class="sidebar-brand d-flex align-items-center justify-content-center"
-                href="{{ route('admin.index') }}">
-                <div class="sidebar-brand-icon rotate-n-15">
-                    <i class="fas fa-laugh-wink"></i>
-                </div>
-                <div class="sidebar-brand-text mx-3">Blogpost</div>
+            <a class="justify-content-center align-self-center pb-2 pt-2" href="{{ route('admin.index') }}">
+                <img src="{{ asset('img/logo-dark.png') }}">
             </a>
             <hr class="sidebar-divider my-0">
             <li class="nav-item active">
@@ -157,9 +153,8 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="{{ route('admin.setting.edit_about_us') }}">Edit
-                            About</a>
-                        <a class="collapse-item" href="{{ route('admin.setting.edit_contact_us') }}">Edit
-                            Contact</a>
+                            About
+                        </a>
                     </div>
                 </div>
             </li>
@@ -198,25 +193,6 @@
     <a class="scroll-to-top rounded" href="#page-top">
         <i class="fas fa-angle-up"></i>
     </a>
-    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
-                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                    </button>
-                </div>
-                <div class="modal-body">Select "Logout" below if you are ready to end your current session.
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
-                </div>
-            </div>
-        </div>
-    </div>
     <script src="{{ asset('vendor/jquery/jquery.js') }}"></script>
     <script src="{{ asset('vendor/bootstrap/js/bootstrap.js') }}"></script>
     <script src="{{ asset('vendor/jquery-easing/jquery.easing.js') }}"></script>
